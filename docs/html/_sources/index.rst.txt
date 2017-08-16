@@ -18,6 +18,7 @@ will be generated to match the data requirements of the processing jobs, and the
 will wait to run until after the data has been made available. 
 
 ** Job Types: **
+
 * Globus Transfer
 * AMWG diagnostic
 * Regridding and Climatologies
@@ -29,13 +30,17 @@ Each processing job has an optional of other jobs it should wait on, for example
 AMWG will wait for the regridded climatologies to be generated before starting its
 run.
 
-** Dependencies: **
-* `Anaconda <https://www.continuum.io/downloads>`_
-* `Slurm <https://slurm.schedmd.com/>`_
-* `Globus <https://www.globus.org/>`_
-* `NCL <https://www.ncl.ucar.edu/>`_
+**Dependencies:**
 
+* Anaconda_
+* Slurm_
+* Globus_
+* NCL_
 
+.. _Anaconda: https://www.continuum.io/downloads
+.. _Slurm: https://slurm.schedmd.com/
+.. _Globus: https://www.globus.org/
+.. _NCL: https://www.ncl.ucar.edu/
 
 .. toctree::
    :maxdepth: 2

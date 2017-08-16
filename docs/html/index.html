@@ -169,21 +169,25 @@
 and processing jobs. There are two main types of jobs, processing and transfer. Transfer jobs
 will be generated to match the data requirements of the processing jobs, and the processing jobs
 will wait to run until after the data has been made available.</p>
-<p>** Job Types: **
-* Globus Transfer
-* AMWG diagnostic
-* Regridding and Climatologies
-* Time series variable extraction
-* A-Prime diagnostic
-* ACME diags (planned)</p>
+<p>** Job Types: **</p>
+<ul class="simple">
+<li>Globus Transfer</li>
+<li>AMWG diagnostic</li>
+<li>Regridding and Climatologies</li>
+<li>Time series variable extraction</li>
+<li>A-Prime diagnostic</li>
+<li>ACME diags (planned)</li>
+</ul>
 <p>Each processing job has an optional of other jobs it should wait on, for example
 AMWG will wait for the regridded climatologies to be generated before starting its
 run.</p>
-<p>** Dependencies: **
-* <a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a>
-* <a class="reference external" href="https://slurm.schedmd.com/">Slurm</a>
-* <a class="reference external" href="https://www.globus.org/">Globus</a>
-* <a class="reference external" href="https://www.ncl.ucar.edu/">NCL</a></p>
+<p><strong>Dependencies:</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a></li>
+<li><a class="reference external" href="https://slurm.schedmd.com/">Slurm</a></li>
+<li><a class="reference external" href="https://www.globus.org/">Globus</a></li>
+<li><a class="reference external" href="https://www.ncl.ucar.edu/">NCL</a></li>
+</ul>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
