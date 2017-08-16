@@ -17,7 +17,7 @@ and processing jobs. There are two main types of jobs, processing and transfer. 
 will be generated to match the data requirements of the processing jobs, and the processing jobs
 will wait to run until after the data has been made available. 
 
-** Job Types: **
+**Jobs:**
 
 * Globus Transfer
 * AMWG diagnostic
@@ -46,6 +46,7 @@ run.
    :maxdepth: 2
    :caption: Contents:
 
+   installation
    quickstart
    transfer
    amwg

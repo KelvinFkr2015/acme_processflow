@@ -35,9 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="acme_workflow 02 documentation" href="index.html"/>
-        <link rel="next" title="Globus Transfer" href="transfer.html"/>
-        <link rel="prev" title="acme_workflow’s documentation" href="index.html"/> 
+    <link rel="top" title="acme_workflow 02 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,9 +89,8 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">acme_workflow’s documentation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
@@ -164,7 +161,33 @@
             
   <div class="section" id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
-<p>I will soon post the quickstart guide.</p>
+<p>This is a guild for a new user on a setup system. A guide for projet and environment setup
+can be found here :ref:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">### Anaconda</span>
+</pre></div>
+</div>
+<p>If your user doesnt have anaconda installed, you will need to install anaconda for environment and package management. You can check if you have conda by simply running <code class="docutils literal"><span class="pre">`conda`</span></code> If the command fails, your user doesnt have conda in your path. If it works, skip the anaconda installation step.</p>
+<ul>
+<li><p class="first">Simply run the installer from the cached copy on the server</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">`bash</span> <span class="pre">/p/cscratch/acme/bin/Anaconda2-4.3.1-Linux-x86_64.sh`</span></code></p>
+</div></blockquote>
+</li>
+<li><p class="first">The installer will ask you some questions, unless you want to customize it in some way, just type ‘yes’ and hit enter for all of them.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Start a new bash shell with the new environment variables.</dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">`bash`</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>For a new run you’ll need to create an input directory and setup your runs configuration file. Make a copy of the sample config file.
+<code class="docutils literal"><span class="pre">`</span>
+<span class="pre">mkdir</span> <span class="pre">/p/cscratch/acme/USER_NAME/PROJECT/input</span>
+<span class="pre">cd</span> <span class="pre">/p/cscratch/acme/USER_NAME/PROJECT/input</span>
+<span class="pre">wget</span> <span class="pre">https://raw.githubusercontent.com/sterlingbaldwin/acme_workflow/master/run.cfg</span>
+<span class="pre">`</span></code></p>
 </div>
 
 
@@ -174,15 +197,6 @@
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="transfer.html" class="btn btn-neutral float-right" title="Globus Transfer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="acme_workflow’s documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
