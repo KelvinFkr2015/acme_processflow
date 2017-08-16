@@ -107,4 +107,3 @@ Once you have logged into globus, each data node will need to be activated with 
 Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.
 
 .. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/initial_run.png?raw=true
-
