@@ -10,7 +10,7 @@ Welcome to acme_workflow's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+    quickstart
 
 Indices and tables
 ==================
