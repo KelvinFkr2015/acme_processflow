@@ -1,29 +1,92 @@
-.. quickstart:
+.. _quickstart:
 
 ***********
 Quick Start
 ***********
 
-This is a guild for a new user on a setup system. A guide for projet and environment setup
-can be found here :ref::
-
-### Anaconda
-
-If your user doesnt have anaconda installed, you will need to install anaconda for environment and package management. You can check if you have conda by simply running ```conda``` If the command fails, your user doesnt have conda in your path. If it works, skip the anaconda installation step.
-
-* Simply run the installer from the cached copy on the server
-
-    ```bash /p/cscratch/acme/bin/Anaconda2-4.3.1-Linux-x86_64.sh```
-
-* The installer will ask you some questions, unless you want to customize it in some way, just type 'yes' and hit enter for all of them.
+This is a guild for a new user on a system thats already been properly setup. For new users starting from scratch please referece to the
+:ref:`Installation` guide. 
 
 
-* Start a new bash shell with the new environment variables.
-    ```bash```
+Anaconda
+--------
 
-For a new run you'll need to create an input directory and setup your runs configuration file. Make a copy of the sample config file.
-```
-mkdir /p/cscratch/acme/USER_NAME/PROJECT/input
-cd /p/cscratch/acme/USER_NAME/PROJECT/input
-wget https://raw.githubusercontent.com/sterlingbaldwin/acme_workflow/master/run.cfg
-```
+You will need to either use an existing conda environment or create your own. On acme1 and aims4 prebuilt envs can be found 
+at /p/cscratch/acme/bin/acme. Otherwise you can create your own environment by navigating to the top of the acme_workflow repo
+and running the command:
+
+.. code-block: bash
+
+    conda env create -f env.yml
+    source activate workflow
+
+
+Run Configuration
+-----------------
+
+The acme_workflow config file contains all settings required to setup a run. Although the config file has many options, most of them
+are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:
+
+
+**output_path**
+The path to where all the output should be stored.
+
+**data_cache_path**
+The path to where model data should be cached.
+
+**source_path**
+This is the path on the remote machine to look for data.
+
+
+**simulation_start_year**
+The start year of the simulation.
+
+**simulation_end_year**
+The expected end year. This can be set to year 100 when the simulation is just starting, and the acme_workflow will continuously poll for new data
+
+**exeriment**
+The name of the experiment.
+
+**set_frequency**
+The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50
+
+**set_jobs**
+Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.
+
+You can find a :ref:`Sample` Configuration here.
+
+
+Execution
+---------
+
+The acme_workflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.
+
+
+.. code-block:: bash
+
+    usage: workflow.py [-h] [-c CONFIG] [-v] [-d] [-n] [-r] [-l LOG] [-u] [-m]
+                    [-V] [-s SIZE]
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -c CONFIG, --config CONFIG
+                            Path to configuration file.
+    -n, --no-ui           Turn off the GUI.
+    -l LOG, --log LOG     Path to logging output file.
+    -u, --no-cleanup      Dont perform pre or post run cleanup. This will leave
+                            all run scripts in place.
+    -m, --no-monitor      Dont run the remote monitor or move any files over
+                            globus.
+    -s SIZE, --size SIZE  The maximume size in gigabytes of a single transfer,
+                            defaults to 100. Must be larger then the largest
+                            single file.
+
+When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
+
+.. code-block:: bash
+
+    nohup python workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
+
+Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.
+
+.. image:: https://github.com/ACME-Climate/acme_workflow/blob/master/doc/images/initial_run.png?raw=true

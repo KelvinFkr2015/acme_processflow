@@ -92,13 +92,18 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">acme_workflow’s documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Globus Transfer</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Globus Transfer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">AMWG Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample Configuration</a></li>
 </ul>
 
             
@@ -164,7 +169,39 @@
             
   <div class="section" id="globus-transfer">
 <h1>Globus Transfer<a class="headerlink" href="#globus-transfer" title="Permalink to this headline">¶</a></h1>
-<p>Globus is a tool for the bulk site to site transfer or large datasets.</p>
+<p><a class="reference external" href="https://www.globus.org/">Globus</a> is a tool for the bulk site to site transfer or large datasets.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>You will need to find the globus node UUIDs for your source and destination nodes. They can be found by loggin into Globus,
+navigating to Endpoints in the upper right, searching for the DTN and looking for its UUID in the node attributes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="c1"># The directory to store model output</span>
+<span class="n">data_cache_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="nb">input</span>
+
+<span class="c1"># This is the remote path to the run directory for your experiment. For example if your simulation was run on edison</span>
+<span class="c1"># the path would look something like</span>
+<span class="c1"># /scratch2/scratchdirs/golaz/ACME_simulations/20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison/run</span>
+<span class="n">source_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">SOME</span><span class="o">/</span><span class="n">PATH</span><span class="o">/</span><span class="n">TO</span><span class="o">/</span><span class="n">AN</span><span class="o">/</span><span class="n">EXPERIMENT</span><span class="o">/</span><span class="n">run</span>
+
+<span class="p">[</span><span class="n">transfer</span><span class="p">]</span>
+<span class="c1"># The Globus endpoint ID for the local host</span>
+<span class="n">destination_endpoint</span> <span class="o">=</span> <span class="n">a871c6de</span><span class="o">-</span><span class="mi">2</span><span class="n">acd</span><span class="o">-</span><span class="mf">11e7</span><span class="o">-</span><span class="n">bc7c</span><span class="o">-</span><span class="mi">22000</span><span class="n">b9a448b</span>
+
+<span class="c1"># The Globus endpoint ID for the remote host</span>
+<span class="n">source_endpoint</span> <span class="o">=</span> <span class="n">b9d02196</span><span class="o">-</span><span class="mi">6</span><span class="n">d04</span><span class="o">-</span><span class="mf">11e5</span><span class="o">-</span><span class="n">ba46</span><span class="o">-</span><span class="mi">22000</span><span class="n">b92c6ec</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The data transfer job is the base job that starts all runs (unless you already have your data local). The acme_workflow will automatically
+generate transfer jobs dynamically as the monitor detects files on the remote host. This means you can start the acme_workflow at the same
+time you start the simulation, and it will wait for data to be generated, and transfer it as it is created.</p>
+<p>Data will be moved in chunks of 100GB, or you can set the size of the transfer jobs with the –size command line flag.</p>
+<p>Once you start your run, if the source and destination nodes have not been activated with your credentials you will be prometed to
+log into Globus and activate the nodes. If you’re running in headless mode, you will be sent an email with activation links.</p>
+</div>
 </div>
 
 

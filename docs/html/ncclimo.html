@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="acme_workflow 02 documentation" href="index.html"/>
-        <link rel="next" title="AMWG Diagnostic" href="aprime.html"/>
+        <link rel="next" title="A-Prime Diagnostic" href="aprime.html"/>
         <link rel="prev" title="AMWG Diagnostic" href="amwg.html"/> 
 
   
@@ -92,13 +92,18 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">acme_workflow’s documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">AMWG Diagnostic</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ncclimo Diagnostic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample Configuration</a></li>
 </ul>
 
             
@@ -166,6 +171,33 @@
 <h1>Ncclimo Diagnostic<a class="headerlink" href="#ncclimo-diagnostic" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://www.mankier.com/1/ncclimo">Ncclimo</a> takes raw model data and produces regridded climatologies, as well as
 extracting time series variables.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+
+    <span class="p">[[</span><span class="n">patterns</span><span class="p">]]</span>
+    <span class="n">ATM</span> <span class="o">=</span> <span class="s2">&quot;cam.h0&quot;</span>
+    <span class="o">...</span>
+
+    <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+    <span class="n">ncclimo</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+
+<span class="p">[</span><span class="n">ncclimo</span><span class="p">]</span>
+<span class="c1"># Path to the regird map</span>
+<span class="n">regrid_map_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">map_ne30np4_to_fv129x256_aave</span><span class="o">.</span><span class="mf">20150901.</span><span class="n">nc</span>
+
+<span class="c1"># A list of variables to generate timeseries files for</span>
+<span class="n">var_list</span> <span class="o">=</span> <span class="n">FSNTOA</span><span class="p">,</span> <span class="n">FLUT</span><span class="p">,</span> <span class="n">FSNT</span><span class="p">,</span> <span class="n">FLNT</span><span class="p">,</span> <span class="n">FSNS</span><span class="p">,</span> <span class="n">FLNS</span><span class="p">,</span> <span class="n">SHFLX</span><span class="p">,</span> <span class="n">QFLX</span><span class="p">,</span> <span class="n">PRECC</span><span class="p">,</span> <span class="n">PRECL</span><span class="p">,</span> <span class="n">PRECSC</span><span class="p">,</span> <span class="n">PRECSL</span><span class="p">,</span> <span class="n">TS</span><span class="p">,</span> <span class="n">TREFHT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The only dependency for ncclimo is that it in the [[patters]] dictionary the ATM key is set to your simulations h0 output. Ncclimo will then
+generate regridded climatologies to be used by diagnostic packages.</p>
+</div>
 </div>
 
 
@@ -178,7 +210,7 @@ extracting time series variables.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="aprime.html" class="btn btn-neutral float-right" title="AMWG Diagnostic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="aprime.html" class="btn btn-neutral float-right" title="A-Prime Diagnostic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="amwg.html" class="btn btn-neutral" title="AMWG Diagnostic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

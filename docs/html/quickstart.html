@@ -35,7 +35,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="acme_workflow 02 documentation" href="index.html"/> 
+    <link rel="top" title="acme_workflow 02 documentation" href="index.html"/>
+        <link rel="next" title="Globus Transfer" href="transfer.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,13 +91,20 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#anaconda">Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-configuration">Run Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample</a></li>
 </ul>
 
             
@@ -160,34 +169,65 @@
            <div itemprop="articleBody">
             
   <div class="section" id="quick-start">
-<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
-<p>This is a guild for a new user on a setup system. A guide for projet and environment setup
-can be found here :ref:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">### Anaconda</span>
+<span id="quickstart"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>This is a guild for a new user on a system thats already been properly setup. For new users starting from scratch please referece to the
+<a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> guide.</p>
+<div class="section" id="anaconda">
+<h2>Anaconda<a class="headerlink" href="#anaconda" title="Permalink to this headline">¶</a></h2>
+<p>You will need to either use an existing conda environment or create your own. On acme1 and aims4 prebuilt envs can be found
+at /p/cscratch/acme/bin/acme. Otherwise you can create your own environment by navigating to the top of the acme_workflow repo
+and running the command:</p>
+</div>
+<div class="section" id="run-configuration">
+<h2>Run Configuration<a class="headerlink" href="#run-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The acme_workflow config file contains all settings required to setup a run. Although the config file has many options, most of them
+are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:</p>
+<p><strong>output_path</strong>
+The path to where all the output should be stored.</p>
+<p><strong>data_cache_path</strong>
+The path to where model data should be cached.</p>
+<p><strong>source_path</strong>
+This is the path on the remote machine to look for data.</p>
+<p><strong>simulation_start_year</strong>
+The start year of the simulation.</p>
+<p><strong>simulation_end_year</strong>
+The expected end year. This can be set to year 100 when the simulation is just starting, and the acme_workflow will continuously poll for new data</p>
+<p><strong>exeriment</strong>
+The name of the experiment.</p>
+<p><strong>set_frequency</strong>
+The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50</p>
+<p><strong>set_jobs</strong>
+Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.</p>
+<p>You can find a <a class="reference internal" href="sample_config.html#sample"><span class="std std-ref">Sample</span></a> Configuration here.</p>
+</div>
+<div class="section" id="execution">
+<h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
+<p>The acme_workflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: workflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span>
+                <span class="o">[</span>-V<span class="o">]</span> <span class="o">[</span>-s SIZE<span class="o">]</span>
+
+optional arguments:
+-h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+-c CONFIG, --config CONFIG
+                        Path to configuration file.
+-n, --no-ui           Turn off the GUI.
+-l LOG, --log LOG     Path to logging output file.
+-u, --no-cleanup      Dont perform pre or post run cleanup. This will leave
+                        all run scripts in place.
+-m, --no-monitor      Dont run the remote monitor or move any files over
+                        globus.
+-s SIZE, --size SIZE  The maximume size in gigabytes of a single transfer,
+                        defaults to <span class="m">100</span>. Must be larger <span class="k">then</span> the largest
+                        single file.
 </pre></div>
 </div>
-<p>If your user doesnt have anaconda installed, you will need to install anaconda for environment and package management. You can check if you have conda by simply running <code class="docutils literal"><span class="pre">`conda`</span></code> If the command fails, your user doesnt have conda in your path. If it works, skip the anaconda installation step.</p>
-<ul>
-<li><p class="first">Simply run the installer from the cached copy on the server</p>
-<blockquote>
-<div><p><code class="docutils literal"><span class="pre">`bash</span> <span class="pre">/p/cscratch/acme/bin/Anaconda2-4.3.1-Linux-x86_64.sh`</span></code></p>
-</div></blockquote>
-</li>
-<li><p class="first">The installer will ask you some questions, unless you want to customize it in some way, just type ‘yes’ and hit enter for all of them.</p>
-</li>
-<li><dl class="first docutils">
-<dt>Start a new bash shell with the new environment variables.</dt>
-<dd><p class="first last"><code class="docutils literal"><span class="pre">`bash`</span></code></p>
-</dd>
-</dl>
-</li>
-</ul>
-<p>For a new run you’ll need to create an input directory and setup your runs configuration file. Make a copy of the sample config file.
-<code class="docutils literal"><span class="pre">`</span>
-<span class="pre">mkdir</span> <span class="pre">/p/cscratch/acme/USER_NAME/PROJECT/input</span>
-<span class="pre">cd</span> <span class="pre">/p/cscratch/acme/USER_NAME/PROJECT/input</span>
-<span class="pre">wget</span> <span class="pre">https://raw.githubusercontent.com/sterlingbaldwin/acme_workflow/master/run.cfg</span>
-<span class="pre">`</span></code></p>
+<p>When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup python workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui <span class="p">&amp;</span>
+</pre></div>
+</div>
+<p>Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.</p>
+<img alt="https://github.com/ACME-Climate/acme_workflow/blob/master/doc/images/initial_run.png?raw=true" src="https://github.com/ACME-Climate/acme_workflow/blob/master/doc/images/initial_run.png?raw=true" />
+</div>
 </div>
 
 
@@ -197,6 +237,15 @@ can be found here :ref:</p>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="transfer.html" class="btn btn-neutral float-right" title="Globus Transfer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

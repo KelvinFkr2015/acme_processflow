@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AMWG Diagnostic &mdash; acme_workflow 02 documentation</title>
+  <title>A-Prime Diagnostic &mdash; acme_workflow 02 documentation</title>
   
 
   
@@ -92,13 +92,18 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">acme_workflow’s documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amwg.html">AMWG Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">AMWG Diagnostic</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A-Prime Diagnostic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample Configuration</a></li>
 </ul>
 
             
@@ -143,7 +148,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>AMWG Diagnostic</li>
+      <li>A-Prime Diagnostic</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -162,10 +167,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="amwg-diagnostic">
-<h1>AMWG Diagnostic<a class="headerlink" href="#amwg-diagnostic" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://github.com/ACME-Climate/a-prime">APrime</a> runs a subset of atmospheric plots, as well
-as the MPAS ocean analysis.</p>
+  <div class="section" id="a-prime-diagnostic">
+<h1>A-Prime Diagnostic<a class="headerlink" href="#a-prime-diagnostic" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/ACME-Climate/a-prime">A-Prime</a> runs a subset of atmospheric plots, as well
+as the MPAS ocean analysis. It is also known as the Coupled Diagnostics.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The A-Prime diagnostics required significantly more data then other diagnostic packages. It can be run in atmospheric only mode by turning off the
+run_ocean flag, in which case it only requires the ATM files and the RPT files. With run_ocean turned on, it requires all the following data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+
+    <span class="p">[[</span><span class="n">patterns</span><span class="p">]]</span>
+    <span class="n">ATM</span> <span class="o">=</span> <span class="s2">&quot;cam.h0&quot;</span>
+    <span class="n">MPAS_AM</span> <span class="o">=</span> <span class="s2">&quot;mpaso.hist.am.timeSeriesStatsMonthly&quot;</span>
+    <span class="n">MPAS_CICE</span> <span class="o">=</span> <span class="s2">&quot;mpascice.hist.am.timeSeriesStatsMonthly&quot;</span>
+    <span class="n">MPAS_RST</span> <span class="o">=</span> <span class="s2">&quot;mpaso.rst.0&quot;</span>
+    <span class="n">MPAS_O_IN</span> <span class="o">=</span> <span class="s2">&quot;mpas-o_in&quot;</span>
+    <span class="n">MPAS_CICE_IN</span> <span class="o">=</span> <span class="s2">&quot;mpas-cice_in&quot;</span>
+    <span class="n">RPT</span> <span class="o">=</span> <span class="s2">&quot;rpointer&quot;</span>
+    <span class="o">...</span>
+
+    <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+    <span class="n">coupled_diags</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>For the MPAS analysis to run, A-Prime needs atmospheric as well as all the MPAS ocean files. Because it computes its own climatologies it does
+not require ncclimo to run first.</p>
+</div>
 </div>
 
 

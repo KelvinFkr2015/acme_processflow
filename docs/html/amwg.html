@@ -92,13 +92,18 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">acme_workflow’s documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transfer.html">Globus Transfer</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">AMWG Diagnostic</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AMWG Diagnostic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aprime.html">AMWG Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample Configuration</a></li>
 </ul>
 
             
@@ -164,7 +169,38 @@
             
   <div class="section" id="amwg-diagnostic">
 <h1>AMWG Diagnostic<a class="headerlink" href="#amwg-diagnostic" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="http://www.cesm.ucar.edu/working_groups/Atmosphere/amwg-diagnostics-package/">AMWG Diagsnostic</a> the standard diagnostic package.</p>
+<p>The <a class="reference external" href="http://www.cesm.ucar.edu/working_groups/Atmosphere/amwg-diagnostics-package/">AMWG Diagsnostic</a> is the standard diagnostic package.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+
+    <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+    <span class="n">ncclimo</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+    <span class="n">amwg</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
+
+<span class="p">[</span><span class="n">amwg</span><span class="p">]</span>
+<span class="c1"># The location of the amwg code.</span>
+<span class="c1"># This is the install directory for the AMWG code</span>
+<span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+
+<span class="c1"># The directory to copy output to for web hosting</span>
+<span class="c1"># This path is relative to the global host_prefix</span>
+<span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">amwg</span><span class="o">/</span>
+
+<span class="c1"># The base of the url to serve through apache</span>
+<span class="c1"># This is the prefix for the url generation, the path to access the output from apache</span>
+<span class="o">*</span> <span class="k">for</span> <span class="n">example</span> <span class="n">this</span> <span class="n">would</span> <span class="n">construct</span> <span class="n">the</span> <span class="n">following</span> <span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">your_server</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">your_data_set</span>
+<span class="n">host_url_prefix</span> <span class="o">=</span> <span class="n">amwg</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>For each year set that AMWG is configured to run, it requires regridded climatologies created by ncclimo. This means that you have to make sure
+that for its year set ncclimo is also set to run. AMWG will wait for ncclimo to finish generating climatologies before starting its run.</p>
+</div>
 </div>
 
 

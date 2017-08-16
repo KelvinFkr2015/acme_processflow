@@ -36,11 +36,14 @@ run.
 * Slurm_
 * Globus_
 * NCL_
+* APACHE_
 
 .. _Anaconda: https://www.continuum.io/downloads
 .. _Slurm: https://slurm.schedmd.com/
 .. _Globus: https://www.globus.org/
 .. _NCL: https://www.ncl.ucar.edu/
+.. _APACHE: https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps
+
 
 .. toctree::
    :maxdepth: 2
@@ -53,4 +56,5 @@ run.
    ncclimo
    aprime
    acme_diags
+   sample_config
 
