@@ -39,4 +39,5 @@ time you start the simulation, and it will wait for data to be generated, and tr
 Data will be moved in chunks of 100GB, or you can set the size of the transfer jobs with the --size command line flag.
 
 Once you start your run, if the source and destination nodes have not been activated with your credentials you will be prometed to
-log into Globus and activate the nodes. If you're running in headless mode, you will be sent an email with activation links.
+log into Globus and activate the nodes. If you're running in headless mode, you will be sent an email with activation links, and the workflow
+will pause until you finish the activation process.
