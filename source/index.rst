@@ -17,7 +17,7 @@ and processing jobs. There are two main types of jobs, processing and transfer. 
 will be generated to match the data requirements of the processing jobs, and the processing jobs
 will wait to run until after the data has been made available. 
 
-**Job Types:**
+** Job Types: **
 * Globus Transfer
 * AMWG diagnostic
 * Regridding and Climatologies
@@ -29,7 +29,7 @@ Each processing job has an optional of other jobs it should wait on, for example
 AMWG will wait for the regridded climatologies to be generated before starting its
 run.
 
-**Dependencies:**
+** Dependencies: **
 * `Anaconda <https://www.continuum.io/downloads>`_
 * `Slurm <https://slurm.schedmd.com/>`_
 * `Globus <https://www.globus.org/>`_
@@ -41,7 +41,6 @@ run.
    :maxdepth: 2
    :caption: Contents:
 
-   self
    quickstart
    transfer
    amwg
