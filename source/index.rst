@@ -3,12 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-********************
+*****************************
 acme_workflow's documentation
-********************
+*****************************
 
 What is the automated workflow?
-==============================
+===============================
 
 The automated workflow is a command line tool to manage post processing for ACME model output
 
