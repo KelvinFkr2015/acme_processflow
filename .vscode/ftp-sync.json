@@ -1,0 +1,24 @@
+{
+    "remotePath": "/export/baldwin32/projects/acme_workflow/",
+    "host": "acme1.llnl.gov",
+    "username": "baldwin32",
+    "password": ")R1onsb3l7",
+    "port": 22,
+    "secure": false,
+    "protocol": "sftp",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "uploadOnSave": false,
+        "extensionsToInclude": [],
+        "path": ""
+    }
+}
