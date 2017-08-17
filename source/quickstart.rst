@@ -4,7 +4,7 @@
 Quick Start
 ***********
 
-This is a guild for a new user on a system thats already been properly setup. For new users starting from scratch please referece to the
+This is a guide for a new user on a system thats already been properly setup. For new users starting from scratch please referece to the
 :ref:`Installation` guide. 
 
 
