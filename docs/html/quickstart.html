@@ -183,17 +183,17 @@ and running the command:</p>
 <p>The acme_workflow config file contains all settings required to setup a run. Although the config file has many options, most of them
 are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:</p>
 <p><strong>output_path</strong>
-The path to where all the output should be stored.</p>
+The path to where all the output should be stored on the local machine.</p>
 <p><strong>data_cache_path</strong>
-The path to where model data should be cached.</p>
+The path to where model data should be cached on the local machine.</p>
 <p><strong>source_path</strong>
-This is the path on the remote machine to look for data.</p>
+This is the path to look for data on the remote machine.</p>
 <p><strong>simulation_start_year</strong>
 The start year of the simulation.</p>
 <p><strong>simulation_end_year</strong>
-The expected end year. This can be set to year 100 when the simulation is just starting, and the acme_workflow will continuously poll for new data</p>
+The expected end year. This can be set to any year when the simulation is just starting, and the acme_workflow will continuously poll for new data and start jobs as the data is made available.</p>
 <p><strong>exeriment</strong>
-The name of the experiment.</p>
+The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison</p>
 <p><strong>set_frequency</strong>
 The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50</p>
 <p><strong>set_jobs</strong>
@@ -219,6 +219,10 @@ optional arguments:
 -s SIZE, --size SIZE  The maximume size in gigabytes of a single transfer,
                         defaults to <span class="m">100</span>. Must be larger <span class="k">then</span> the largest
                         single file.
+</pre></div>
+</div>
+<p>Once you’ve configured your run, execute this command to start in interactive mode.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>python workflow.py -c run.cfg
 </pre></div>
 </div>
 <p>When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>

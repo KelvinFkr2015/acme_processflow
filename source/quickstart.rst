@@ -29,23 +29,22 @@ are only useful in non-default environments or to advanced users. For a basic ru
 
 
 **output_path**
-The path to where all the output should be stored.
+The path to where all the output should be stored on the local machine.
 
 **data_cache_path**
-The path to where model data should be cached.
+The path to where model data should be cached on the local machine.
 
 **source_path**
-This is the path on the remote machine to look for data.
-
+This is the path to look for data on the remote machine.
 
 **simulation_start_year**
 The start year of the simulation.
 
 **simulation_end_year**
-The expected end year. This can be set to year 100 when the simulation is just starting, and the acme_workflow will continuously poll for new data
+The expected end year. This can be set to any year when the simulation is just starting, and the acme_workflow will continuously poll for new data and start jobs as the data is made available.
 
 **exeriment**
-The name of the experiment.
+The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison
 
 **set_frequency**
 The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50
@@ -80,6 +79,12 @@ The acme_workflow has two run modes, interactive and headless. In headless mode 
     -s SIZE, --size SIZE  The maximume size in gigabytes of a single transfer,
                             defaults to 100. Must be larger then the largest
                             single file.
+
+Once you've configured your run, execute this command to start in interactive mode.
+
+.. code-block:: bash
+
+    python workflow.py -c run.cfg
 
 When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
 

@@ -165,62 +165,74 @@
   <div class="section" id="sample-configuration">
 <span id="sample"></span><h1>Sample Configuration<a class="headerlink" href="#sample-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
-    <span class="c1"># The directory to hold post processing output</span>
-    <span class="n">output_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="n">output</span>
+<span class="c1"># The directory to hold post processing output</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="n">output</span>
 
-    <span class="c1"># The directory to store model output</span>
-    <span class="n">data_cache_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="nb">input</span>
+<span class="c1"># The directory to store model output</span>
+<span class="n">data_cache_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="nb">input</span>
 
-    <span class="c1"># The path on the remote machine to look for model output</span>
-    <span class="n">source_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">scratch2</span><span class="o">/</span><span class="n">scratchdirs</span><span class="o">/</span><span class="n">golaz</span><span class="o">/</span><span class="n">ACME_simulations</span><span class="o">/</span><span class="mf">20170313.</span><span class="n">beta1_02</span><span class="o">.</span><span class="n">A_WCYCL1850S</span><span class="o">.</span><span class="n">ne30_oECv3_ICG</span><span class="o">.</span><span class="n">edison</span><span class="o">/</span><span class="n">run</span>
+<span class="c1"># The path on the remote machine to look for model output</span>
+<span class="n">source_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">source</span>
 
-    <span class="c1"># The year to start the post processing, typically 1</span>
-    <span class="n">simulation_start_year</span> <span class="o">=</span>  <span class="mi">1</span>
+<span class="c1"># The year to start the post processing, typically 1</span>
+<span class="n">simulation_start_year</span> <span class="o">=</span>  <span class="mi">1</span>
 
+<span class="c1"># The last year to run post processing jobs on</span>
+<span class="n">simulation_end_year</span> <span class="o">=</span> <span class="mi">20</span>
 
-    <span class="c1"># The last year to run post processing jobs on</span>
-    <span class="n">simulation_end_year</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># The list of year lengths to run jobs on</span>
+<span class="n">set_frequency</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span>
 
-    <span class="c1"># The list of year lengths to run jobs on</span>
-    <span class="n">set_frequency</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span>
+<span class="c1"># The experiment name</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">YOUR_EXPERIMENT</span>
 
-    <span class="c1"># The experiment name</span>
-    <span class="n">experiment</span> <span class="o">=</span> <span class="n">case_scripts</span>
+<span class="c1"># The batch system type to submit to, currently only slurm is supported (PBS in the future)</span>
+<span class="n">batch_system_type</span> <span class="o">=</span> <span class="n">slurm</span>
 
-    <span class="c1"># The batch system type to submit to, currently only slurm is supported (PBS in the future)</span>
-    <span class="n">batch_system_type</span> <span class="o">=</span> <span class="n">slurm</span>
+<span class="c1"># The base URL for the server thats hosting image output</span>
+<span class="n">img_host_server</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">acme</span><span class="o">-</span><span class="n">viewer</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span>
 
-    <span class="c1"># The base URL for the server thats hosting image output</span>
-    <span class="n">img_host_server</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">acme</span><span class="o">-</span><span class="n">viewer</span><span class="o">.</span><span class="n">llnl</span><span class="o">.</span><span class="n">gov</span>
+<span class="c1"># The email address to send to when all processing is complete, leave commented out to turn off</span>
+<span class="n">email</span> <span class="o">=</span> <span class="n">your_email</span><span class="nd">@llnl.gov</span>
 
-    <span class="c1"># The email address to send to when all processing is complete, leave commented out to turn off</span>
-    <span class="n">email</span> <span class="o">=</span> <span class="n">your_email</span><span class="nd">@llnl.gov</span>
+<span class="c1"># the base path for web hosting</span>
+<span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme</span><span class="o">-</span><span class="n">diags</span><span class="o">/</span>
 
-    <span class="c1"># The regular expressions to use to search for files on the remote machine</span>
-    <span class="p">[[</span><span class="n">patterns</span><span class="p">]]</span>
-        <span class="n">STREAMS</span> <span class="o">=</span> <span class="s2">&quot;streams&quot;</span>
-        <span class="n">ATM</span> <span class="o">=</span> <span class="s2">&quot;cam.h0&quot;</span>
-        <span class="n">MPAS_AM</span> <span class="o">=</span> <span class="s2">&quot;mpaso.hist.am.timeSeriesStatsMonthly&quot;</span>
-        <span class="n">MPAS_CICE</span> <span class="o">=</span> <span class="s2">&quot;mpascice.hist.am.timeSeriesStatsMonthly&quot;</span>
-        <span class="n">MPAS_RST</span> <span class="o">=</span> <span class="s2">&quot;mpaso.rst.0&quot;</span>
-        <span class="n">MPAS_O_IN</span> <span class="o">=</span> <span class="s2">&quot;mpas-o_in&quot;</span>
-        <span class="n">MPAS_CICE_IN</span> <span class="o">=</span> <span class="s2">&quot;mpas-cice_in&quot;</span>
-        <span class="n">RPT</span> <span class="o">=</span> <span class="s2">&quot;rpointer&quot;</span>
-        <span class="c1"># Add custom file types here for example</span>
-        <span class="c1"># ATM_HIST_1 = &quot;cam.h1&quot;</span>
-        <span class="c1"># ATM_HIST_2 = &quot;cam.h2&quot;</span>
+<span class="c1"># The regular expressions to use to search for files on the remote machine</span>
+<span class="c1"># Everything besides ATM is optional and only needed if running A-Prime.</span>
+<span class="p">[[</span><span class="n">patterns</span><span class="p">]]</span>
+    <span class="n">ATM</span> <span class="o">=</span> <span class="s2">&quot;cam.h0&quot;</span>
+    <span class="n">STREAMS</span> <span class="o">=</span> <span class="s2">&quot;streams&quot;</span>
+    <span class="n">MPAS_AM</span> <span class="o">=</span> <span class="s2">&quot;mpaso.hist.am.timeSeriesStatsMonthly&quot;</span>
+    <span class="n">MPAS_CICE</span> <span class="o">=</span> <span class="s2">&quot;mpascice.hist.am.timeSeriesStatsMonthly&quot;</span>
+    <span class="n">MPAS_RST</span> <span class="o">=</span> <span class="s2">&quot;mpaso.rst.0&quot;</span>
+    <span class="n">MPAS_O_IN</span> <span class="o">=</span> <span class="s2">&quot;mpas-o_in&quot;</span>
+    <span class="n">MPAS_CICE_IN</span> <span class="o">=</span> <span class="s2">&quot;mpas-cice_in&quot;</span>
+    <span class="n">RPT</span> <span class="o">=</span> <span class="s2">&quot;rpointer&quot;</span>
+    <span class="c1"># Add custom file types here for example</span>
+    <span class="c1"># ATM_HIST_1 = &quot;cam.h1&quot;</span>
+    <span class="c1"># ATM_HIST_2 = &quot;cam.h2&quot;</span>
 
-    <span class="c1"># The jobs to run on each set, to turn off the job entirely leave its value blank</span>
-    <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
-        <span class="c1"># this will run ncclimo for both 5 and 10</span>
-        <span class="n">ncclimo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span>
-        <span class="c1"># this will run time series only at 10</span>
-        <span class="n">timeseries</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="c1"># this will run amwg only at 5</span>
-        <span class="n">amwg</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span>
-        <span class="c1"># this will turn off the coupled diag</span>
-        <span class="n">coupled_diag</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="n">acme_diags</span> <span class="o">=</span>
+<span class="c1"># The jobs to run on each set, to turn off the job entirely leave its value blank</span>
+<span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+    <span class="c1"># this will run ncclimo for both 5 and 10</span>
+    <span class="n">ncclimo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span>
+    <span class="c1"># this will run time series only at 10</span>
+    <span class="n">timeseries</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="c1"># this will run amwg only at 5</span>
+    <span class="n">amwg</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span>
+    <span class="c1"># this will turn off the coupled diag</span>
+    <span class="n">coupled_diags</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">acme_diags</span> <span class="o">=</span>
+
+<span class="p">[</span><span class="n">acme_diags</span><span class="p">]</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="n">acme</span><span class="o">-</span><span class="n">diags</span>
+    <span class="n">host_url_prefix</span> <span class="o">=</span> <span class="n">acme</span><span class="o">-</span><span class="n">diags</span>
+    <span class="n">backend</span> <span class="o">=</span> <span class="n">vcs</span>
+    <span class="n">diff_colormap</span> <span class="o">=</span> <span class="n">bl_to_darkred</span>
+    <span class="n">seasons</span> <span class="o">=</span> <span class="n">DJF</span><span class="p">,</span> <span class="n">MAM</span><span class="p">,</span> <span class="n">JJA</span><span class="p">,</span> <span class="n">SON</span><span class="p">,</span> <span class="n">ANN</span>
+    <span class="n">reference_data_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">obs_data_20140804</span>
+    <span class="n">sets</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span>
 
 <span class="p">[</span><span class="n">transfer</span><span class="p">]</span>
     <span class="c1"># The Globus endpoint ID for the local host</span>
@@ -231,13 +243,13 @@
 
 <span class="p">[</span><span class="n">amwg</span><span class="p">]</span>
     <span class="c1"># The location of the amwg code</span>
-    <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
+    <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diags</span>
 
     <span class="c1"># The directory to copy output to for hosting</span>
-    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme</span><span class="o">-</span><span class="n">diags</span><span class="o">/</span><span class="n">amwg</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="n">amwg</span>
 
     <span class="c1"># The base of the url to serve through apache</span>
-    <span class="n">host_prefix</span> <span class="o">=</span> <span class="n">amwg</span>
+    <span class="n">host_url_prefix</span> <span class="o">=</span> <span class="n">amwg</span>
 
 <span class="p">[</span><span class="n">ncclimo</span><span class="p">]</span>
     <span class="c1"># Path to the regird map</span>
@@ -249,10 +261,10 @@
 
 <span class="p">[</span><span class="n">coupled_diags</span><span class="p">]</span>
     <span class="c1"># The directory to copy plots for hosting</span>
-    <span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">acme</span><span class="o">-</span><span class="n">diags</span><span class="o">/</span><span class="n">coupled_diag</span>
+    <span class="n">host_directory</span> <span class="o">=</span> <span class="n">coupled_diag</span>
 
     <span class="c1"># The base of the url to serve through apache</span>
-    <span class="n">host_prefix</span> <span class="o">=</span> <span class="n">coupled</span>
+    <span class="n">host_url_prefix</span> <span class="o">=</span> <span class="n">coupled</span>
 
     <span class="c1"># The code directory for coupled_diags</span>
     <span class="n">coupled_diags_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">PreAndPostProcessingScripts</span><span class="o">/</span><span class="n">coupled_diags</span>
