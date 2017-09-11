@@ -11,13 +11,12 @@ This is a guide for a new user on a system thats already been properly setup. Fo
 Anaconda
 --------
 
-You will need to either use an existing conda environment or create your own. On acme1 and aims4 prebuilt envs can be found 
-at /p/cscratch/acme/bin/acme. Otherwise you can create your own environment by navigating to the top of the acme_workflow repo
-and running the command:
+You will need to first create an anaconda environment with the depedencies and install the processflow. Once conda has install all the python modules, create a run configuration file from the 
+default and edit it to suit your case. You can find a :ref:`Sample` Configuration here.
 
 .. code-block: bash
 
-    conda env create -f env.yml
+    conda create -n workflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
     source activate workflow
 
 
@@ -52,7 +51,6 @@ The acme_workflow breaks the simulation into groups based on how much data you w
 **set_jobs**
 Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.
 
-You can find a :ref:`Sample` Configuration here.
 
 
 Execution
@@ -84,15 +82,16 @@ Once you've configured your run, execute this command to start in interactive mo
 
 .. code-block:: bash
 
-    python workflow.py -c run.cfg
+    workflow.py -c run.cfg
 
 When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
 
 .. code-block:: bash
 
-    nohup python workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
+    nohup workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
 
-Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.
+Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. 
+You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.
 
 .. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_example.png?raw=true
 
@@ -101,12 +100,12 @@ Once you have entered your credentials and logged in, you will be given a random
 .. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_example.png?raw=true
 .. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_complete.png?raw=true
 
-Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re run. If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.
+Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run. 
+If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.
 
 .. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_example.png?raw=true
 
 .. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_web.png?raw=true
-
 
 
 Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.

@@ -22,9 +22,8 @@ Once these are setup, the installation for the acme_workflow is straightforward.
 
 .. code-block:: bash
 
-    git clone git@github.com:ACME-Climate/acme_workflow.git
-    cd acme_workflow
-    conda env create -f env.yml
+    conda create -n workflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
     source activate workflow
+
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`

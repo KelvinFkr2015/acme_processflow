@@ -104,7 +104,6 @@
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample Configuration</a></li>
 </ul>
 
             
@@ -174,9 +173,8 @@
 <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> guide.</p>
 <div class="section" id="anaconda">
 <h2>Anaconda<a class="headerlink" href="#anaconda" title="Permalink to this headline">¶</a></h2>
-<p>You will need to either use an existing conda environment or create your own. On acme1 and aims4 prebuilt envs can be found
-at /p/cscratch/acme/bin/acme. Otherwise you can create your own environment by navigating to the top of the acme_workflow repo
-and running the command:</p>
+<p>You will need to first create an anaconda environment with the depedencies and install the processflow. Once conda has install all the python modules, create a run configuration file from the
+default and edit it to suit your case. You can find a <span class="xref std std-ref">Sample</span> Configuration here.</p>
 </div>
 <div class="section" id="run-configuration">
 <h2>Run Configuration<a class="headerlink" href="#run-configuration" title="Permalink to this headline">¶</a></h2>
@@ -198,7 +196,6 @@ The name of the experiment, based on the ACME convention for naming the file out
 The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50</p>
 <p><strong>set_jobs</strong>
 Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.</p>
-<p>You can find a <a class="reference internal" href="sample_config.html#sample"><span class="std std-ref">Sample Configuration</span></a> Configuration here.</p>
 </div>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
@@ -222,19 +219,21 @@ optional arguments:
 </pre></div>
 </div>
 <p>Once you’ve configured your run, execute this command to start in interactive mode.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>python workflow.py -c run.cfg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>workflow.py -c run.cfg
 </pre></div>
 </div>
 <p>When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup python workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui <span class="p">&amp;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui <span class="p">&amp;</span>
 </pre></div>
 </div>
-<p>Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.</p>
+<p>Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser.
+You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.</p>
 <img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_example.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_example.png?raw=true" />
 <p>Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt</p>
 <img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_example.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_example.png?raw=true" />
 <img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_complete.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_complete.png?raw=true" />
-<p>Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re run. If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.</p>
+<p>Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run.
+If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.</p>
 <img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_example.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_example.png?raw=true" />
 <img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_web.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_web.png?raw=true" />
 <p>Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.</p>
