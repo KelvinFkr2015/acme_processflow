@@ -34,6 +34,10 @@ Each processing job has an optional number of other jobs it should wait on, for 
 AMWG will wait for the regridded climatologies to be generated before starting its
 run.
 
+**Shell**
+
+All commands are written for BASH. If you're using tcsh or zsh you will need to first run the `bash` command to enter a bash shell.
+
 **Dependencies:**
 
 * Anaconda_
@@ -41,6 +45,7 @@ run.
 * Globus_
 * NCL_
 * APACHE_
+* BASH
 
 .. _Anaconda: https://www.continuum.io/downloads
 .. _Slurm: https://slurm.schedmd.com/
