@@ -93,21 +93,13 @@ When run in interactive mode, the acme_workflow will exit if the terminal window
 Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. 
 You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.
 
-.. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_example.png?raw=true
 
 Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt
-
-.. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_example.png?raw=true
-.. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_complete.png?raw=true
 
 Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run. 
 If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.
 
-.. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_example.png?raw=true
 
-.. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_web.png?raw=true
+Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate. When all the jobs finish, you will be emailed with links to the diagnostic output.
 
-
-Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.
-
-.. image:: https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/initial_run.png?raw=true
+Credentials to view the output can be found here: https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png

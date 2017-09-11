@@ -4,7 +4,7 @@
 Sample Config
 *************
 
-.. code-block: bash
+.. code-block:: bash
 
         [global]
         # The directory to hold post processing output

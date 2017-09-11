@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ncclimo.html">Ncclimo Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aprime.html">A-Prime Diagnostic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="acme_diags.html">ACME Diagnostic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_config.html">Sample Config</a></li>
 </ul>
 
             
@@ -228,16 +229,11 @@ optional arguments:
 </div>
 <p>Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser.
 You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.</p>
-<img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_example.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_example.png?raw=true" />
 <p>Once you have entered your credentials and logged in, you will be given a randomly generated key, copy that key and paste it into the terminal prompt</p>
-<img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_example.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_example.png?raw=true" />
-<img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_complete.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_login_token_complete.png?raw=true" />
 <p>Once you have logged into globus, each data node will need to be activated with your account. This activation can last for days, but periodically needs to be re-run.
 If the node needs to be activated you will be prompted, if your credentials are still cached on the node this step will be skipped.</p>
-<img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_example.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_example.png?raw=true" />
-<img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_web.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/Globus_activate_endpoint_web.png?raw=true" />
-<p>Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate.</p>
-<img alt="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/initial_run.png?raw=true" src="https://github.com/sterlingbaldwin/acme_workflow/blob/master/doc/images/initial_run.png?raw=true" />
+<p>Once a run starts in interactive mode, you should see the job sets listed, and the jobs should populate. When all the jobs finish, you will be emailed with links to the diagnostic output.</p>
+<p>Credentials to view the output can be found here: <a class="reference external" href="https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png">https://acme-climate.atlassian.net/wiki/spaces/ATM/pages/41353486/How+to+run+AMWG+diagnostics+package?preview=%2F41353486%2F42730119%2Fcredentials.png</a></p>
 </div>
 </div>
 
