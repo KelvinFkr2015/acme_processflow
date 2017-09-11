@@ -237,35 +237,6 @@ run.</p>
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
 <p>During the processflow run it will create the required input/output directories. The only file that needs to be in place before the run is the config file for that run, which
 will be copied into the input directory. Once the run has completed the directories will have the following structure:</p>
-<p>├── input
-│   ├── ATM [cam.h0 atmospheric model files]
-│   ├── case_scripts [model run case directory]
-│   ├── MPAS_AM [mpaso.hist.am.timeSeriesStatsMonthly]
-│   ├── MPAS_CICE [mpascice.hist.am.timeSeriesStatsMonthly]
-│   ├── MPAS_CICE_IN
-│   │   └── mpas-cice_in
-│   ├── MPAS_O_IN
-│   │   └── mpas-o_in
-│   ├── MPAS_RST
-│   │   ├── mpaso.rst.0002-01-01_00000.nc
-│   ├── RPT
-│   │   ├── rpointer.atm
-│   │   └── rpointer.ocn
-│   ├── run.cfg
-│   └── STREAMS
-│       ├── streams.cice
-│       └── streams.ocean
-└── output</p>
-<blockquote>
-<div>├── amwg [AMWG output]
-├── climo [climatologies]
-├── climo_regrid [regridded climatologies]
-├── coupled_diags [coupled_diags output]
-├── monthly
-│   └── 5yr [regridded timeseries]
-├── run_state.txt [current human readable run state]
-├── script_archive [archive directory of run scripts]
-└── workflow.log</div></blockquote>
 </div>
 </div>
 
