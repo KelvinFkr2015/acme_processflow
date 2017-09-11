@@ -60,7 +60,7 @@ run.
    ncclimo
    aprime
    acme_diags
-   sample_config
+   sample
 
 
 Output

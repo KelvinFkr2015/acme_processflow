@@ -12,7 +12,7 @@ Anaconda
 --------
 
 You will need to first create an anaconda environment with the depedencies and install the processflow. Once conda has install all the python modules, create a run configuration file from the 
-default and edit it to suit your case. You can find a :ref:`Sample` Configuration here.
+default and edit it to suit your case. You can find a :ref:`Sample` configuration here.
 
 .. code-block: bash
 
