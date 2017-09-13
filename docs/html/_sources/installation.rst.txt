@@ -22,7 +22,7 @@ Once these are setup, the installation for the acme_workflow is straightforward.
 
 .. code-block:: bash
 
-    conda create -n workflow -c acme -c uvcdat -c conda-forge -c lukasz processflow
+    conda create -n workflow -c acme -c conda-forge -c uvcdat  -c lukasz processflow
     source activate workflow
 
 
