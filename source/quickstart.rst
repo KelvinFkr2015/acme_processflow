@@ -16,14 +16,14 @@ default and edit it to suit your case. You can find a :ref:`Sample` configuratio
 
 .. code-block: bash
 
-    conda create -n workflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
-    source activate workflow
+    conda create -n processflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
+    source activate processflow
 
 
 Run Configuration
 -----------------
 
-The acme_workflow config file contains all settings required to setup a run. Although the config file has many options, most of them
+The acme_processflow config file contains all settings required to setup a run. Although the config file has many options, most of them
 are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:
 
 
@@ -56,12 +56,12 @@ Which jobs to run on which sets. This allows you to have different subsets of jo
 Execution
 ---------
 
-The acme_workflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.
+The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.
 
 
 .. code-block:: bash
 
-    usage: workflow.py [-h] [-c CONFIG] [-v] [-d] [-n] [-r] [-l LOG] [-u] [-m]
+    usage: processflow.py [-h] [-c CONFIG] [-v] [-d] [-n] [-r] [-l LOG] [-u] [-m]
                     [-V] [-s SIZE]
 
     optional arguments:
@@ -82,13 +82,13 @@ Once you've configured your run, execute this command to start in interactive mo
 
 .. code-block:: bash
 
-    workflow.py -c run.cfg
+    processflow.py -c run.cfg
 
-When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
+When run in interactive mode, the acme_processflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
 
 .. code-block:: bash
 
-    nohup workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
+    nohup processflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
 
 Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. 
 You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.

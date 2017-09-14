@@ -18,12 +18,12 @@ This guide assumes your system already has the prerequisit dependencies.
 .. _NCL: https://www.ncl.ucar.edu/
 .. _APACHE: https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps
 
-Once these are setup, the installation for the acme_workflow is straightforward.
+Once these are setup, the installation for the acme_processflow is straightforward.
 
 .. code-block:: bash
 
-    conda create -n workflow -c acme -c conda-forge -c uvcdat  -c lukasz processflow
-    source activate workflow
+    conda create -n processflow -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+    source activate processflow
 
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`

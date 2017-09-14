@@ -16,14 +16,14 @@ default and edit it to suit your case. You can find a :ref:`Sample` configuratio
 
 .. code-block: bash
 
-    conda create -n workflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
-    source activate workflow
+    conda create -n processflow -c uvcdat -c conda-forge -c acme -c lukasz processflow
+    source activate processflow
 
 
 Run Configuration
 -----------------
 
-The acme_workflow config file contains all settings required to setup a run. Although the config file has many options, most of them
+The processflow config file contains all settings required to setup a run. Although the config file has many options, most of them
 are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:
 
 
@@ -40,13 +40,13 @@ This is the path to look for data on the remote machine.
 The start year of the simulation.
 
 **simulation_end_year**
-The expected end year. This can be set to any year when the simulation is just starting, and the acme_workflow will continuously poll for new data and start jobs as the data is made available.
+The expected end year. This can be set to any year when the simulation is just starting, and the acme_processflow will continuously poll for new data and start jobs as the data is made available.
 
 **exeriment**
 The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison
 
 **set_frequency**
-The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50
+The processflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50
 
 **set_jobs**
 Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.
@@ -56,12 +56,12 @@ Which jobs to run on which sets. This allows you to have different subsets of jo
 Execution
 ---------
 
-The acme_workflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.
+The processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.
 
 
 .. code-block:: bash
 
-    usage: workflow.py [-h] [-c CONFIG] [-v] [-d] [-n] [-r] [-l LOG] [-u] [-m]
+    usage: processflow.py [-h] [-c CONFIG] [-v] [-d] [-n] [-r] [-l LOG] [-u] [-m]
                     [-V] [-s SIZE]
 
     optional arguments:
@@ -82,13 +82,13 @@ Once you've configured your run, execute this command to start in interactive mo
 
 .. code-block:: bash
 
-    workflow.py -c run.cfg
+    processflow.py -c run.cfg
 
-When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
+When run in interactive mode, the processflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run
 
 .. code-block:: bash
 
-    nohup workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
+    nohup processflow.py -c /PATH/TO/YOUR/CONFIG --no-ui &
 
 Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser. 
 You will be presented with a page to choose which OAuth provided to use, its recommended that you use the default globus ID provider.
