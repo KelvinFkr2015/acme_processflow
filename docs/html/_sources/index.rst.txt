@@ -7,10 +7,10 @@
 acme_workflow's documentation
 *****************************
 
-What is the automated processflow?
+What is the automated workflow?
 ===============================
 
-The automated processflow is a command line tool to automatically run post processing jobs for ACME model output.
+The automated workflow is a command line tool to automatically run post processing jobs for ACME model output.
 
 The tool takes a single configuration files and runs a series of long running transfer
 and processing jobs on any amount of model output, running the set of jobs on any number of set lengths. The output

@@ -179,7 +179,7 @@ default and edit it to suit your case. You can find a <a class="reference intern
 </div>
 <div class="section" id="run-configuration">
 <h2>Run Configuration<a class="headerlink" href="#run-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The acme_workflow config file contains all settings required to setup a run. Although the config file has many options, most of them
+<p>The acme_processflow config file contains all settings required to setup a run. Although the config file has many options, most of them
 are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:</p>
 <p><strong>output_path</strong>
 The path to where all the output should be stored on the local machine.</p>
@@ -200,8 +200,8 @@ Which jobs to run on which sets. This allows you to have different subsets of jo
 </div>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
-<p>The acme_workflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: workflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span>
+<p>The acme_processflow has two run modes, interactive and headless. In headless mode the current run status is written out to a file named run_state.txt under the output directory.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>usage: processflow.py <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-c CONFIG<span class="o">]</span> <span class="o">[</span>-v<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-n<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-l LOG<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-m<span class="o">]</span>
                 <span class="o">[</span>-V<span class="o">]</span> <span class="o">[</span>-s SIZE<span class="o">]</span>
 
 optional arguments:
@@ -220,11 +220,11 @@ optional arguments:
 </pre></div>
 </div>
 <p>Once you’ve configured your run, execute this command to start in interactive mode.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>workflow.py -c run.cfg
+<div class="highlight-bash"><div class="highlight"><pre><span></span>processflow.py -c run.cfg
 </pre></div>
 </div>
-<p>When run in interactive mode, the acme_workflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup workflow.py -c /PATH/TO/YOUR/CONFIG --no-ui <span class="p">&amp;</span>
+<p>When run in interactive mode, the acme_processflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup processflow.py -c /PATH/TO/YOUR/CONFIG --no-ui <span class="p">&amp;</span>
 </pre></div>
 </div>
 <p>Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser.
