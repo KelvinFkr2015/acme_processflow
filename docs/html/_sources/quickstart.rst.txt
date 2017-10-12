@@ -27,29 +27,30 @@ The acme_processflow config file contains all settings required to setup a run. 
 are only useful in non-default environments or to advanced users. For a basic run, the only keys that need to be changed are:
 
 
-**output_path**
-The path to where all the output should be stored on the local machine.
-
-**data_cache_path**
-The path to where model data should be cached on the local machine.
+**project_path**
+The root path to be created on the local machine for all local storage. All model data used as input will be saved in project_path/input, and all job output will be stored in project_path/output
 
 **source_path**
-This is the path to look for data on the remote machine.
+This is the path to look for data on the remote machine. This should be the root directory for the simulation, below which will be /run and /archive directories.
 
 **simulation_start_year**
-The start year of the simulation.
+The start year of the simulation. For example if the first year of the simulation output is 0100, but 100. If the first year is 0001, but 1
 
 **simulation_end_year**
-The expected end year. This can be set to any year when the simulation is just starting, and the acme_workflow will continuously poll for new data and start jobs as the data is made available.
+The expected end year. This can be set to any year while the simulation is still starting, and the acme_processflow will continuously poll for new data and start jobs as the data is made available.
 
 **exeriment**
 The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison
 
 **set_frequency**
-The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, and for every group of 10 years and 50 years you would get the jobs for that length run. In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50
+The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on. 
+For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50, 
+and for every group of 10 years and 50 years you would get the jobs for that length run. 
+In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50
 
 **set_jobs**
-Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.
+Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths. 
+If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.
 
 
 
@@ -61,8 +62,8 @@ The acme_processflow has two run modes, interactive and headless. In headless mo
 
 .. code-block:: bash
 
-    usage: processflow.py [-h] [-c CONFIG] [-v] [-d] [-n] [-r] [-l LOG] [-u] [-m]
-                    [-V] [-s SIZE]
+    usage: processflow.py [-h] [-c CONFIG] [-n] [-l LOG] [-u] [-m] [-f]
+                      [-r RESOURCE_DIR]
 
     optional arguments:
     -h, --help            show this help message and exit
@@ -70,13 +71,14 @@ The acme_processflow has two run modes, interactive and headless. In headless mo
                             Path to configuration file.
     -n, --no-ui           Turn off the GUI.
     -l LOG, --log LOG     Path to logging output file.
-    -u, --no-cleanup      Dont perform pre or post run cleanup. This will leave
+    -u, --no-cleanup      Don't perform pre or post run cleanup. This will leave
                             all run scripts in place.
-    -m, --no-monitor      Dont run the remote monitor or move any files over
+    -m, --no-monitor      Don't run the remote monitor or move any files over
                             globus.
-    -s SIZE, --size SIZE  The maximume size in gigabytes of a single transfer,
-                            defaults to 100. Must be larger then the largest
-                            single file.
+    -f, --file-list       Turn on debug output of the internal file_list so you
+                            can see what the current state of the model files are
+    -r RESOURCE_DIR, --resource-dir RESOURCE_DIR
+                            Path to custom resource directory
 
 Once you've configured your run, execute this command to start in interactive mode.
 

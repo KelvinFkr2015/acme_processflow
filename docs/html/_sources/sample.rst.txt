@@ -9,13 +9,9 @@ Sample
 .. code-block:: bash
 
     [global]
-    # The directory to hold post processing output
-    # This should be on the local machine running the processflow
-    output_path = /p/cscratch/acme/USER_NAME/PROJECT/output
-
-    # The directory to store model output
-    # This should be on the local machine running the processflow
-    data_cache_path = /p/cscratch/acme/USER_NAME/PROJECT/input
+    # The root local directory to store project data as
+    # well as post processing output
+    project_path = /p/cscratch/acme/USER_NAME/PROJECT
 
     # The path on the remote machine to look for model output
     # This should be on the remote machine that ran the simulation
@@ -33,7 +29,7 @@ Sample
 
     # The list of year lengths to run jobs on
     # If you want the diagnostics run every 5 years, add 5 to this list
-    # If you want a single time series run, add the length of the simulation to the list
+    # If you want a single time series run, add the length of the run to the list
     #   and just add timeseries to that frequency
     set_frequency = 5, 10, 20
 
@@ -44,8 +40,9 @@ Sample
     # The email address to send to when all processing is complete, leave commented out to turn off
     email = your_email@llnl.gov
 
-    # The batch system type to submit to, currently only slurm is supported (PBS in the future)
-    batch_system_type = slurm
+    # Turn on (1) if you've run short term archiving on your model data
+    # Turn off (0) otherwise
+    short_term_archive = 1
 
     # The base URL for the server thats hosting image output
     img_host_server = https://acme-viewer.llnl.gov
@@ -53,21 +50,8 @@ Sample
     # the base path for web hosting
     host_directory = /var/www/acme/acme-diags/
 
-    # The regular expressions to use to search for files on the remote machine
-    # Everything besides ATM is optional and only needed if running A-Prime.
-    # If running A-Prime without the ocean, all patterns below RPT can be removed
-    [[patterns]]
-        ATM = "cam.h0"
-        RPT = "rpointer"
-        STREAMS = "streams"
-        MPAS_AM = "mpaso.hist.am.timeSeriesStatsMonthly"
-        MPAS_CICE = "mpascice.hist.am.timeSeriesStatsMonthly"
-        MPAS_RST = "mpaso.rst.0"
-        MPAS_O_IN = "mpas-o_in"
-        MPAS_CICE_IN = "mpas-cice_in"
-        # Add custom file types here for example
-        # ATM_HIST_1 = "cam.h1"
-        # ATM_HIST_2 = "cam.h2"
+    # Types of files to transfer
+    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice'
 
     # The jobs to run on each set, to turn off the job entirely leave its value blank
     [[set_jobs]]
@@ -79,14 +63,13 @@ Sample
         amwg = 5, 10
         # this will turn off the coupled diag
         coupled_diags = 10
-        acme_diags = 10
+        e3sm_diags = 10
 
-    [acme_diags]
-    host_directory = acme-diags
-    host_url_prefix = acme-diags
+    [e3sm_diags]
+    host_directory = e3sm-diags
     backend = mpl
     seasons = DJF, MAM, JJA, SON, ANN
-    reference_data_path = /p/cscratch/acme/data/obs_for_acem_diags
+    reference_data_path = /p/cscratch/acme/data/obs_for_acme_diags
     sets = 3, 4, 5, 7, 13
 
     [transfer]
@@ -103,8 +86,6 @@ Sample
     # The directory to copy output to for hosting
     host_directory = amwg
 
-    # The base of the url to serve through apache
-    host_url_prefix = amwg
 
     [ncclimo]
     # Path to the regird map
@@ -116,39 +97,10 @@ Sample
 
     [coupled_diags]
     # The directory to copy plots for hosting
-    host_directory = coupled_diag
-
-    # The base of the url to serve through apache
-    host_url_prefix = coupled_diag
+    host_directory = aprime-diags
 
     # The code directory for coupled_diags
-    coupled_diags_home = /p/cscratch/acme/data/PreAndPostProcessingScripts/coupled_diags
+    coupled_diags_home = /p/cscratch/acme/data/a-prime
 
-    # Turn on or off the mpas analysis, 1 for on 0 for off
-    run_ocean = 1
-
-    # Required files for coupled diags
-    mpas_meshfile = /p/cscratch/acme/data/mapping/gridfile.oEC60to30.nc
-    mpas_remapfile = /p/cscratch/acme/data/mapping/maps/map_oEC60to30v3_TO_0.5x0.5degree_blin.nc
-    pop_remapfile = /p/cscratch/acme/data/mapping/map_gx1v6_TO_0.5x0.5degree_blin.160413.nc
-    remap_files_dir = /p/cscratch/acme/data/mapping/maps
-    gpcp_regrid_wgt_file = /p/cscratch/acme/data/ne30-to-GPCP.conservative.wgts.nc
-    ceres_ebaf_regrid_wgt_file = /p/cscratch/acme/data/ne30-to-CERES-EBAF.conservative.wgts.nc
-    ers_regrid_wgt_file = /p/cscratch/acme/data/ne30-to-ERS.conservative.wgts.nc
-    obs_ocndir = /p/cscratch/acme/data/observations/Ocean
-    obs_seaicedir = /p/cscratch/acme/data/observations/SeaIce
-    obs_sstdir = /p/cscratch/acme/data/observations/Ocean/SST
-    obs_iceareaNH = /p/cscratch/acme/data/observations/SeaIce/IceArea_timeseries/iceAreaNH_climo.nc
-    obs_iceareaSH = /p/cscratch/acme/data/observations/SeaIce/IceArea_timeseries/iceAreaSH_climo.nc
-    obs_icevolNH = /p/cscratch/acme/data/observations/SeaIce/PIOMAS/PIOMASvolume_monthly_climo.nc
-    mpaso_regions_file = /p/cscratch/acme/data/oEC60to30v3_Atlantic_region_and_southern_transect.nc
-
-    # Native resolution
-    test_native_res = ne30
-
-    # Reference case type, only obs is supported
-    ref_case = obs
-
-    # Path to observations
-    ref_archive_dir = /p/cscratch/acme/data/obs_for_diagnostics
-    ref_case_dir = /p/cscratch/acme/data/obs_for_diagnostics
+    test_atm_res = ne30
+    test_mpas_mesh_name = oEC60to30v3
