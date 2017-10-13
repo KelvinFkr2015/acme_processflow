@@ -29,7 +29,7 @@ Sample
 
     # The list of year lengths to run jobs on
     # If you want the diagnostics run every 5 years, add 5 to this list
-    # If you want a single time series run, add the length of the run to the list
+    # If you want a single time series run, add the length of the simulation to the list
     #   and just add timeseries to that frequency
     set_frequency = 5, 10, 20
 
@@ -50,22 +50,20 @@ Sample
     # the base path for web hosting
     host_directory = /var/www/acme/acme-diags/
 
-    # Types of files to transfer, for the time being this shout just be set to 'atm'
-    # but once aprime is added all the file flags can be turned back on
-    # file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice'
-    file_types = 'atm'
+    # Types of files to transfer
+    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice'
 
     # The jobs to run on each set, to turn off the job entirely leave its value blank
     [[set_jobs]]
         # this will run ncclimo for both 5 and 10
-        ncclimo = 5, 10, 20
+        ncclimo = 5, 10
         # this will run time series only at 10
         timeseries = 20
         # this will run amwg only at 5
         amwg = 5, 10
         # this will turn off the coupled diag
-        aprime_diags = 
-        e3sm_diags = 5, 10, 20
+        coupled_diags = 10
+        e3sm_diags = 10
 
     [e3sm_diags]
     host_directory = e3sm-diags
@@ -97,12 +95,12 @@ Sample
     var_list = FSNTOA, FLUT, FSNT, FLNT, FSNS, FLNS, SHFLX, QFLX, PRECC, PRECL, PRECSC, PRECSL, TS, TREFHT
 
 
-    [coupled_diags]
+    [aprime_diags]
     # The directory to copy plots for hosting
     host_directory = aprime-diags
 
     # The code directory for coupled_diags
-    coupled_diags_home = /p/cscratch/acme/data/a-prime
+    aprime_code_path = /p/cscratch/acme/data/a-prime
 
     test_atm_res = ne30
-    test_mpas_mesh_name = oEC60to30v3
+    test_mpas_mesh_name = oEC60to30v3   
