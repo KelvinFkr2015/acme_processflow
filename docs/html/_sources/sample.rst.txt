@@ -50,20 +50,22 @@ Sample
     # the base path for web hosting
     host_directory = /var/www/acme/acme-diags/
 
-    # Types of files to transfer
-    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice'
+    # Types of files to transfer, for the time being this shout just be set to 'atm'
+    # but once aprime is added all the file flags can be turned back on
+    # file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice'
+    file_types = 'atm'
 
     # The jobs to run on each set, to turn off the job entirely leave its value blank
     [[set_jobs]]
         # this will run ncclimo for both 5 and 10
-        ncclimo = 5, 10
+        ncclimo = 5, 10, 20
         # this will run time series only at 10
         timeseries = 20
         # this will run amwg only at 5
         amwg = 5, 10
         # this will turn off the coupled diag
-        coupled_diags = 10
-        e3sm_diags = 10
+        aprime_diags = 
+        e3sm_diags = 5, 10, 20
 
     [e3sm_diags]
     host_directory = e3sm-diags

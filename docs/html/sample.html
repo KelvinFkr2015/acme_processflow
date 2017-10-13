@@ -206,20 +206,22 @@
 <span class="c1"># the base path for web hosting</span>
 <span class="nv">host_directory</span> <span class="o">=</span> /var/www/acme/acme-diags/
 
-<span class="c1"># Types of files to transfer</span>
-<span class="nv">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>, <span class="s1">&#39;ice&#39;</span>, <span class="s1">&#39;ocn&#39;</span>, <span class="s1">&#39;rest&#39;</span>, <span class="s1">&#39;streams.ocean&#39;</span>, <span class="s1">&#39;streams.cice&#39;</span>
+<span class="c1"># Types of files to transfer, for the time being this shout just be set to &#39;atm&#39;</span>
+<span class="c1"># but once aprime is added all the file flags can be turned back on</span>
+<span class="c1"># file_types = &#39;atm&#39;, &#39;ice&#39;, &#39;ocn&#39;, &#39;rest&#39;, &#39;streams.ocean&#39;, &#39;streams.cice&#39;</span>
+<span class="nv">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>
 
 <span class="c1"># The jobs to run on each set, to turn off the job entirely leave its value blank</span>
 <span class="o">[[</span>set_jobs<span class="o">]]</span>
     <span class="c1"># this will run ncclimo for both 5 and 10</span>
-    <span class="nv">ncclimo</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
+    <span class="nv">ncclimo</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>, <span class="m">20</span>
     <span class="c1"># this will run time series only at 10</span>
     <span class="nv">timeseries</span> <span class="o">=</span> <span class="m">20</span>
     <span class="c1"># this will run amwg only at 5</span>
     <span class="nv">amwg</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
     <span class="c1"># this will turn off the coupled diag</span>
-    <span class="nv">coupled_diags</span> <span class="o">=</span> <span class="m">10</span>
-    <span class="nv">e3sm_diags</span> <span class="o">=</span> <span class="m">10</span>
+    <span class="nv">aprime_diags</span> <span class="o">=</span>
+    <span class="nv">e3sm_diags</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>, <span class="m">20</span>
 
 <span class="o">[</span>e3sm_diags<span class="o">]</span>
 <span class="nv">host_directory</span> <span class="o">=</span> e3sm-diags
