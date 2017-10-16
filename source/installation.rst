@@ -32,13 +32,13 @@ Alternately you may want to use the nightly build. This is the more experimental
     conda create -n workflow -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
     source activate workflow
 
-If you alreayd have an installation and want to upgrade:
+If you alreayd have an installation and want to upgrade, make sure you're in your environment and then run:
 
 .. code-block:: bash
 
     conda install -c acme -c conda-forge -c uvcdat  -c lukasz processflow
 
-Or upgrade from the nightly
+Or upgrade from the nightly:
 
 .. code-block:: bash
 
