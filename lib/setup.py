@@ -60,6 +60,7 @@ Please add a space and run again.'''.format(num=line_index)
         parser.print_help()
         sys.exit()
 
+
     if args.resource_dir:
         config['global']['resource_dir'] = args.resource_dir
     else:
@@ -129,15 +130,15 @@ Please add a space and run again.'''.format(num=line_index)
         set_frequency = new_freqs
     config['global']['set_frequency'] = set_frequency
 
-    # setup config for file type directories
-    if not isinstance(config['global']['file_types'], list):
-        config['global']['file_types'] = [config['global']['file_types']]
-    for filetype in config['global']['file_types']:
-        new_dir = os.path.join(
-            config['global']['input_path'],
-            filetype)
-        if not os.path.exists(new_dir):
-            os.makedirs(new_dir)
+    # # setup config for file type directories
+    # if not isinstance(config['global']['file_types'], list):
+    #     config['global']['file_types'] = [config['global']['file_types']]
+    # for filetype in config['global']['file_types']:
+    #     new_dir = os.path.join(
+    #         config['global']['input_path'],
+    #         filetype)
+    #     if not os.path.exists(new_dir):
+    #         os.makedirs(new_dir)
 
     # setup run_scipts_path
     run_script_path = os.path.join(
