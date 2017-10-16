@@ -25,5 +25,23 @@ Once these are setup, the installation for the acme_workflow is straightforward.
     conda create -n workflow -c acme -c conda-forge -c uvcdat  -c lukasz processflow
     source activate workflow
 
+Alternately you may want to use the nightly build. This is the more experimental branch where new changes are pushed before being merged into the main build
+
+.. code-block:: bash
+
+    conda create -n workflow -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
+    source activate workflow
+
+If you alreayd have an installation and want to upgrade:
+
+.. code-block:: bash
+
+    conda install -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+
+Or upgrade from the nightly
+
+.. code-block:: bash
+
+    conda install -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`

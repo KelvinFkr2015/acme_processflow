@@ -178,6 +178,19 @@
 <span class="nb">source</span> activate workflow
 </pre></div>
 </div>
+<p>Alternately you may want to use the nightly build. This is the more experimental branch where new changes are pushed before being merged into the main build</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create -n workflow -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
+<span class="nb">source</span> activate workflow
+</pre></div>
+</div>
+<p>If you alreayd have an installation and want to upgrade:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda install -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+</pre></div>
+</div>
+<p>Or upgrade from the nightly</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda install -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
+</pre></div>
+</div>
 <p>Instructions on configuration and execution can be found here <a class="reference internal" href="quickstart.html#quickstart"><span class="std std-ref">Quick Start</span></a></p>
 </div>
 
