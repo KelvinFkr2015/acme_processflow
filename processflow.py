@@ -44,6 +44,9 @@ parser.add_argument('-m', '--no-monitor', help='Don\'t run the remote monitor or
 parser.add_argument('-f', '--file-list', help='Turn on debug output of the internal file_list so you can see what the current state of the model files are', action='store_true')
 parser.add_argument('-r', '--resource-dir', help='Path to custom resource directory')
 
+print "This is a test, this is only a test, do not be alarmed (or run this code)"
+sys.exit()
+
 # check for NCL
 if not os.environ.get('NCARG_ROOT'):
     ncar_path = '/usr/local/src/NCL-6.3.0/'
