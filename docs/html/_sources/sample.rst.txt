@@ -61,8 +61,8 @@ Sample
         timeseries = 20
         # this will run amwg only at 5
         amwg = 5, 10
-        # this will turn off the coupled diag
-        coupled_diags = 10
+        # this will turn off the aprime diags
+        aprime_diags = 
         e3sm_diags = 10
 
     [e3sm_diags]
