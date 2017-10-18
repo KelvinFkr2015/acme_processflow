@@ -2,6 +2,7 @@ import os
 import sys
 import threading
 import logging
+import re
 
 from time import sleep
 from peewee import *
@@ -19,15 +20,6 @@ filestatus = {
     'IN_TRANSIT': 2
 }
 
-file_type_map = {
-    'atm': 'EXPERIMENT.cam.h0.YEAR-MONTH.nc',
-    'ice': 'mpascice.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc',
-    'ocn': 'mpaso.hist.am.timeSeriesStatsMonthly.YEAR-MONTH-01.nc',
-    'rest': 'mpaso.rst.YEAR-01-01_00000.nc',
-    'streams.ocean': 'streams.ocean',
-    'streams.cice': 'streams.cice'
-}
-
 
 class FileManager(object):
     """
@@ -36,7 +28,7 @@ class FileManager(object):
     def __init__(self, database, types, sta=False, **kwargs):
         self.mutex = kwargs['mutex']
         self.sta = sta
-        self.types = types if isinstance(types, list) else [types]
+        self.types = types
         self.active_transfers = 0
         self.db_path = database
         self.mutex.acquire()
@@ -49,8 +41,18 @@ class FileManager(object):
         self.remote_endpoint = kwargs.get('remote_endpoint')
         self.local_path = kwargs.get('local_path')
         self.local_endpoint = kwargs.get('local_endpoint')
-        self.remote_path = kwargs.get('remote_path')
-        
+        self.search_paths = kwargs.get('search_paths')
+        self.start_year = kwargs.get('start_year')
+        self.alt_names = []
+        self.alt_types = []
+
+        # remove the trailing 'run' if its there
+        head, tail = os.path.split(kwargs.get('remote_path'))
+        if tail == 'run':
+            self.remote_path = head
+        else:
+            self.remote_path = kwargs.get('remote_path')
+        print 'remote_path ' + self.remote_path
 
     def __str__(self):
         return str({
@@ -77,69 +79,49 @@ class FileManager(object):
         print 'Creating file table'
         newfiles = []
         with self.db.atomic():
-            for _type in self.types:
-                if _type not in file_type_map:
-                    continue
+            for _type, _template in self.types.items():
                 if _type == 'rest':
-                    name = file_type_map[_type].replace('YEAR', '0002')
-                    local_path = os.path.join(
-                        self.local_path,
-                        'input',
-                        'rest',
-                        name)
-                    if self.sta:
-                        remote_path = os.path.join(
-                            self.remote_path,
-                            'archive',
-                            'rest',
-                            '0002-01-01-00000',
-                            name)
-                    else:
-                        remote_path = os.path.join(self.remote_path, name)
-                    newfiles = self._add_file(
-                        newfiles=newfiles,
-                        name=name,
-                        local_path=local_path,
-                        remote_path=remote_path,
-                        _type=_type)
-                if _type == 'streams.ocean' or _type == 'streams.cice':
+                    continue
+                    # name = self.render_file_template(_template=_template, EXPERIMENT=experiment, YEAR=simstart+1)
+                    # local_path = os.path.join(self.local_path, 'input', 'rest', name)
+                    # if self.sta:
+                    #     start_name = '{start:04d}-01-01-00000'.format(
+                    #         start=simstart + 1)
+                    # newfiles = self._add_file(
+                    #     newfiles=newfiles,
+                    #     name=name,
+                    #     local_path=local_path,
+                    #     _type=_type)
+                elif _type == 'streams.ocean' or _type == 'streams.cice':
                     name = _type
                     local_path = local_path = os.path.join(
                         self.local_path,
                         'input',
                         'streams',
                         name)
-                    remote_path = os.path.join(self.remote_path, 'run', name)
                     newfiles = self._add_file(
                         newfiles=newfiles,
                         name=name,
                         local_path=local_path,
-                        remote_path=remote_path,
                         _type=_type)
-                else:
+                elif _type in ['atm', 'ice', 'ocn']:
                     for year in xrange(simstart, simend + 1):
                         for month in xrange(1, 13):
-                            if _type == 'atm':
-                                name = file_type_map[_type].replace('EXPERIMENT', experiment)
-                            else:
-                                name = file_type_map[_type]
-                            yearstr = '{0:04d}'.format(year)
-                            monthstr = '{0:02d}'.format(month)
-                            name = name.replace('YEAR', yearstr)
-                            name = name.replace('MONTH', monthstr)
+                            name = self.render_file_template(_template=_template, EXPERIMENT=experiment, YEAR=year, MONTH=month)
                             local_path = os.path.join(self.local_path, _type, name)
-                            if self.sta:
-                                remote_path = os.path.join(self.remote_path, 'archive', _type, 'hist', name)
-                            else:
-                                remote_path = os.path.join(self.remote_path, name)
                             newfiles = self._add_file(
                                 newfiles=newfiles,
                                 name=name,
                                 local_path=local_path,
-                                remote_path=remote_path,
                                 _type=_type,
                                 year=year,
                                 month=month)
+                else:
+                    for year in xrange(simstart, simend + 1):
+                        name = self.render_file_template(_template=_template, EXPERIMENT=experiment, YEAR=year, MONTH=month)
+                        self.alt_names.append(name)
+                        self.alt_types.append(_type)
+
             print 'Inserting file data into the table'
             self.mutex.acquire()
             try:
@@ -151,6 +133,22 @@ class FileManager(object):
             finally:
                 self.mutex.release()
             print 'Database update complete'
+    
+    def render_file_template(self, _template, **kwargs):
+        """
+        Renders a file_type name template with the allowed keywords
+        """
+        keywords = ['EXPERIMENT', 'YEAR', 'MONTH']
+        name = _template
+        for key in keywords:
+            if key == 'YEAR':
+                keystr = '{key:04d}'.format(key=kwargs.get(key, 0))
+            elif key == 'MONTH':
+                keystr = '{key:02d}'.format(key=kwargs.get(key, 0))
+            else:
+                keystr = kwargs.get(key, '')
+            name = name.replace(key, keystr)
+        return name
 
     def _add_file(self, newfiles, **kwargs):
         local_status = filestatus['EXISTS'] \
@@ -163,7 +161,7 @@ class FileManager(object):
             'name': kwargs['name'],
             'local_path': kwargs['local_path'],
             'local_status': local_status,
-            'remote_path': kwargs['remote_path'],
+            'remote_path': '',
             'remote_status': filestatus['NOT_EXIST'],
             'year': kwargs.get('year', 0),
             'month': kwargs.get('month', 0),
@@ -184,60 +182,121 @@ class FileManager(object):
         result = client.endpoint_autoactivate(self.remote_endpoint, if_expires_in=2880)
         if result['code'] == "AutoActivationFailed":
             return False
-        if self.sta:
-            for _type in self.types:
-                if _type == 'rest':
-                    remote_path = os.path.join(self.remote_path, 'archive', _type, '0002-01-01-00000')
-                elif 'streams' in _type:
-                    remote_path = os.path.join(self.remote_path, 'run')
-                else:
-                    remote_path = os.path.join(self.remote_path, 'archive', _type, 'hist')
-                print 'Querying globus for {}'.format(_type)
-                res = self._get_ls(
-                    client=client,
-                    path=remote_path)
-
-                self.mutex.acquire()
-                try:
-                    names = [x.name for x in DataFile.select().where(DataFile.datatype == _type)]
-                    to_update_name = [x['name'] for x in res if x['name'] in names]
-                    to_update_size = [x['size'] for x in res if x['name'] in names]
-                    q = DataFile.update(
-                        remote_status=filestatus['EXISTS'],
-                        remote_size=to_update_size[to_update_name.index(DataFile.name)]
-                    ).where(
-                        (DataFile.name << to_update_name) &
-                        (DataFile.datatype == _type))
-                    n = q.execute()
-                except Exception as e:
-                    print_debug(e)
-                    print "Do you have the correct start and end dates?"
-                finally:
-                    self.mutex.release()
-        else:
-            remote_path = os.path.join(self.remote_path, 'run')
+        names = [x.name for x in DataFile.select()]
+        for path in self.search_paths:
+            # if 'rest' in path:
+            #     remote_path = path
+            # elif path == 'run':
+            #     remote_path = os.path.join(self.remote_path, path)
+            # else:
+            remote_path = os.path.join(self.remote_path, path)
+            print 'Querying globus for {}'.format(remote_path)
             res = self._get_ls(
-                client=self.client,
+                client=client,
                 path=remote_path)
-            self.mutex.acquire()
+            res = [x for x in res]
+            resnames = [x['name'] for x in res]
+            
+            print 'got a response'
             try:
-                for _type in self.types:
-                    names = [x.name for x in DataFile.select().where(DataFile.datatype == _type)]
-                    to_update_name = [x['name'] for x in res if x['name'] in names]
-                    to_update_size = [x['size'] for x in res if x['name'] in names]
+                new_name = []
+                new_size = []
+                new_path = []
+                new_type = []
+                for alt_index, alt_name in enumerate(self.alt_names):
+                    for index, name in enumerate(resnames):
+                        if re.search(pattern=alt_name, string=name):
+                            new_name.append(name)
+                            new_size.append(res[index]['size'])
+                            new_path.append(os.path.join(remote_path, name))
+                            new_type.append(self.alt_types[alt_index])
 
+                if new_name:
+                    print 'starting alt update'
+                    newfiles = []
+                    for index, item in enumerate(new_name):
+                        local_path = os.path.join(self.local_path, new_type[index], new_name[index])
+                        local_status = filestatus['EXISTS'] if os.path.exists(local_path) else filestatus['NOT_EXIST']
+                        local_size = os.path.getsize(local_path) if os.path.exists(local_path) else 0
+                        newfiles.append({
+                            'name': item,
+                            'local_path': local_path,
+                            'local_status': local_status,
+                            'remote_path': new_path[index],
+                            'remote_status': filestatus['EXISTS'],
+                            'year': 0,
+                            'month': 0,
+                            'datatype': new_type[index],
+                            'local_size': local_size,
+                            'remote_size': new_size[index]
+                        })
+
+                    self.mutex.acquire()
+                    try:
+                        step = 50
+                        for idx in range(0, len(newfiles), step):
+                            DataFile.insert_many(newfiles[idx: idx + step]).execute()
+                    except Exception as e:
+                        print_debug(e)
+                    finally:
+                        if self.mutex.locked():
+                            self.mutex.release()
+
+                if 'rest' in path:
+                    to_update_name = [x for x in resnames if 'mpaso.rst' in x]
+                    to_update_size = [x['size'] for x in res if 'mpaso.rst' in x['name']]
+                    to_update_path = [os.path.join(remote_path, x) for x in to_update_name]
+                    newfiles = []
+                    for index, item in enumerate(to_update_name):
+                        local_path = os.path.join(self.local_path, 'rest', to_update_name[index])
+                        local_status = filestatus['EXISTS'] if os.path.exists(local_path) else filestatus['NOT_EXIST']
+                        local_size = os.path.getsize(local_path) if os.path.exists(local_path) else 0
+                        newfiles.append({
+                            'name': item,
+                            'local_path': local_path,
+                            'local_status': local_status,
+                            'remote_path': to_update_path[index],
+                            'remote_status': filestatus['EXISTS'],
+                            'year': 0,
+                            'month': 0,
+                            'datatype': 'rest',
+                            'local_size': local_size,
+                            'remote_size': to_update_size[index]
+                        })
+
+                    self.mutex.acquire()
+                    try:
+                        step = 50
+                        for idx in range(0, len(newfiles), step):
+                            DataFile.insert_many(newfiles[idx: idx + step]).execute()
+                    except Exception as e:
+                        print_debug(e)
+                    finally:
+                        if self.mutex.locked():
+                            self.mutex.release()
+                else:
+                    to_update_name = [x for x in resnames if x in names]
+                    to_update_size = [x['size'] for x in res if x['name'] in names]
+                    to_update_path = [os.path.join(remote_path, x) for x in resnames if x in names]
+
+                    self.mutex.acquire()
                     q = DataFile.update(
                         remote_status=filestatus['EXISTS'],
+                        remote_path=to_update_path[to_update_name.index(DataFile.name)],
                         remote_size=to_update_size[to_update_name.index(DataFile.name)]
                     ).where(
                         (DataFile.name << to_update_name) &
-                        (DataFile.datatype == _type))
+                        (DataFile.name.not_in(new_name))
+                    )
                     n = q.execute()
-                    print 'updated {} records'.format(n)
+                    print '{} updated'.format(n)
             except Exception as e:
                 print_debug(e)
+                print "Do you have the correct start and end dates?"
             finally:
-                self.mutex.release()
+                print 'done with {} update'.format(path)
+                if self.mutex.locked():
+                    self.mutex.release()
 
     def _get_ls(self, client, path):
         for fail_count in xrange(10):
@@ -504,3 +563,13 @@ class FileManager(object):
                     print "{start:04d}-{end:04d} has no data".format(
                         start=job_set.set_start_year,
                         end=job_set.set_end_year)
+
+    def print_db(self):
+        self.mutex.acquire()
+        for df in DataFile.select():
+            print {
+                'name': df.name,
+                'local_path': df.local_path,
+                'remote_path': df.remote_path
+            }
+        self.mutex.release()

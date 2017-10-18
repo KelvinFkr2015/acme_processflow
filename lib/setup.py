@@ -18,6 +18,9 @@ from util import (setup_globus,
                   print_message,
                   print_debug)
 
+from globus_cli.services.transfer import get_client
+
+
 def setup(parser, display_event, **kwargs):
     """
     Parse the commandline arguments, and setup the master config dict
@@ -59,7 +62,6 @@ Please add a space and run again.'''.format(num=line_index)
         print "Error parsing config file {}".format(args.config)
         parser.print_help()
         sys.exit()
-
 
     if args.resource_dir:
         config['global']['resource_dir'] = args.resource_dir
@@ -131,14 +133,14 @@ Please add a space and run again.'''.format(num=line_index)
     config['global']['set_frequency'] = set_frequency
 
     # # setup config for file type directories
-    # if not isinstance(config['global']['file_types'], list):
-    #     config['global']['file_types'] = [config['global']['file_types']]
-    # for filetype in config['global']['file_types']:
-    #     new_dir = os.path.join(
-    #         config['global']['input_path'],
-    #         filetype)
-    #     if not os.path.exists(new_dir):
-    #         os.makedirs(new_dir)
+    if not isinstance(config['global']['file_types'], dict):
+        print 'Invalid file_types, please refer to the documentation https://acme-climate.github.io/acme_processflow/docs/html/sample.html'
+    for filetype, valie in config['global']['file_types'].items():
+        new_dir = os.path.join(
+            config['global']['input_path'],
+            filetype)
+        if not os.path.exists(new_dir):
+            os.makedirs(new_dir)
 
     # setup run_scipts_path
     run_script_path = os.path.join(
@@ -173,11 +175,16 @@ Please add a space and run again.'''.format(num=line_index)
         remote_endpoint=config['transfer']['source_endpoint'],
         local_path=os.path.join(config['global']['project_path'], 'input'),
         local_endpoint=config['transfer']['destination_endpoint'],
+        search_paths=config['global']['search_paths'],
+        start_year=sim_start_year,
         mutex=mutex)
     filemanager.populate_file_list(
         simstart=config['global']['simulation_start_year'],
         simend=config['global']['simulation_end_year'],
         experiment=config['global']['experiment'])
+    filemanager.update_remote_status(get_client())
+    filemanager.print_db()
+    sys.exit()
     print 'Updating local status'
     filemanager.update_local_status()
     print 'Local status update complete'

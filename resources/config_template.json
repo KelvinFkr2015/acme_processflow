@@ -26,8 +26,7 @@
     ],
     "amwg": [
         "diag_home",
-        "host_directory",
-        "host_url_prefix"
+        "host_directory"
     ],
     "ncclimo": [
         "regrid_map_path",
@@ -37,6 +36,6 @@
         "host_directory",
         "test_atm_res",
         "test_mpas_mesh_name",
-        "coupled_diag_home"
+        "aprime_diags_home"
     ]
 }
