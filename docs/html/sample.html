@@ -167,38 +167,38 @@
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>global<span class="o">]</span>
 <span class="c1"># The root local directory to store project data as</span>
 <span class="c1"># well as post processing output</span>
-<span class="nv">project_path</span> <span class="o">=</span> /p/cscratch/acme/USER_NAME/PROJECT
+<span class="nv">project_path</span> <span class="o">=</span> /PATH/TO/YOUR/NEW/PROJECT/DIRECTORY
 
 <span class="c1"># The path on the remote machine to look for model output</span>
 <span class="c1"># This should be on the remote machine that ran the simulation</span>
-<span class="nv">source_path</span> <span class="o">=</span> /path/to/data/source
+<span class="nv">source_path</span> <span class="o">=</span> /PATH/TO/YOUR/SIMULATION
 
 <span class="c1"># The year to start the post processing, typically 1</span>
 <span class="c1"># If the first year of the simulation is 0001, use 1, but if</span>
 <span class="c1">#  it started later e.g. 1980, use 1980</span>
-<span class="nv">simulation_start_year</span> <span class="o">=</span>  <span class="m">1</span>
+<span class="nv">simulation_start_year</span> <span class="o">=</span>  <span class="m">51</span>
 
 <span class="c1"># The last year to run post processing jobs on</span>
 <span class="c1"># The highest number year, so if your simulation starts in 1980</span>
 <span class="c1">#   and you want to process 20 years, this should be 2000</span>
-<span class="nv">simulation_end_year</span> <span class="o">=</span> <span class="m">20</span>
+<span class="nv">simulation_end_year</span> <span class="o">=</span> <span class="m">60</span>
 
 <span class="c1"># The list of year lengths to run jobs on</span>
 <span class="c1"># If you want the diagnostics run every 5 years, add 5 to this list</span>
 <span class="c1"># If you want a single time series run, add the length of the simulation to the list</span>
 <span class="c1">#   and just add timeseries to that frequency</span>
-<span class="nv">set_frequency</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>, <span class="m">20</span>
+<span class="nv">set_frequency</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
 
 <span class="c1"># The experiment name</span>
 <span class="c1"># for example 20170731.F20TR_ck10.ne30_ne30.edison</span>
-<span class="nv">experiment</span> <span class="o">=</span> YOUR_EXPERIMENT
+<span class="nv">experiment</span> <span class="o">=</span> YOUR.SIMULATION.NAME
 
 <span class="c1"># The email address to send to when all processing is complete, leave commented out to turn off</span>
-<span class="nv">email</span> <span class="o">=</span> your_email@llnl.gov
+<span class="nv">email</span> <span class="o">=</span> YOUREMAIL@INSTITUION.GOV
 
 <span class="c1"># Turn on (1) if you&#39;ve run short term archiving on your model data</span>
 <span class="c1"># Turn off (0) otherwise</span>
-<span class="nv">short_term_archive</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">short_term_archive</span> <span class="o">=</span> <span class="m">0</span>
 
 <span class="c1"># The base URL for the server thats hosting image output</span>
 <span class="nv">img_host_server</span> <span class="o">=</span> https://acme-viewer.llnl.gov
@@ -217,7 +217,7 @@
     <span class="nv">timeseries</span> <span class="o">=</span> <span class="m">20</span>
     <span class="c1"># this will run amwg only at 5</span>
     <span class="nv">amwg</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
-    <span class="c1"># this will turn off the aprime diags</span>
+    <span class="c1"># this will turn off the coupled diag</span>
     <span class="nv">aprime_diags</span> <span class="o">=</span>
     <span class="nv">e3sm_diags</span> <span class="o">=</span> <span class="m">10</span>
 
@@ -233,7 +233,7 @@
 <span class="nv">destination_endpoint</span> <span class="o">=</span> a871c6de-2acd-11e7-bc7c-22000b9a448b
 
 <span class="c1"># The Globus endpoint ID for the remote host</span>
-<span class="nv">source_endpoint</span> <span class="o">=</span> b9d02196-6d04-11e5-ba46-22000b92c6ec
+<span class="nv">source_endpoint</span> <span class="o">=</span> 9d6d994a-6d04-11e5-ba46-22000b92c6ec
 
 <span class="o">[</span>amwg<span class="o">]</span>
 <span class="c1"># The location of the amwg code</span>
