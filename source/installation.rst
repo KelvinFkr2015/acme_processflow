@@ -23,7 +23,7 @@ Once these are setup, the installation for the acme_workflow is straightforward.
 .. code-block:: bash
 
     wget https://raw.githubusercontent.com/ACME-Climate/acme_processflow/master/env.yml
-    conda env create -f env.yml --yes
+    conda env create -f env.yml
     source activate workflow
 
 If you already have an environment named "workflow," simply open the env.yml in an editor and change the first line to whatever name you like
