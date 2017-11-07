@@ -26,6 +26,8 @@ Once these are setup, the installation for the acme_workflow is straightforward.
     conda env create -f env.yml --yes
     source activate workflow
 
+If you already have an environment named "workflow," simply open the env.yml in an editor and change the first line to whatever name you like
+
 If you already have an installation and want to upgrade, first source your environment and then run:
 
 .. code-block:: bash
