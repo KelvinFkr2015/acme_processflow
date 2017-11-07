@@ -174,17 +174,13 @@
 <li><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps">APACHE</a></li>
 </ul>
 <p>Once these are setup, the installation for the acme_workflow is straightforward.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create -n workflow -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget https://raw.githubusercontent.com/ACME-Climate/acme_processflow/master/env.yml
+conda env create -f env.yml --yes
 <span class="nb">source</span> activate workflow
 </pre></div>
 </div>
-<p>Alternately you may want to use the nightly build. This is the more experimental branch where new changes are pushed before being merged into the main build</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda create -n workflow -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
-<span class="nb">source</span> activate workflow
-</pre></div>
-</div>
-<p>If you alreayd have an installation and want to upgrade, make sure you’re in your environment and then run:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>conda install -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+<p>If you already have an installation and want to upgrade, first source your environment and then run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>conda install -c acme -c conda-forge -c uvcdat -c lukasz processflow
 </pre></div>
 </div>
 <p>Or upgrade from the nightly:</p>

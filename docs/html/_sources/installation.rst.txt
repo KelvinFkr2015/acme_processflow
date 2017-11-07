@@ -22,21 +22,15 @@ Once these are setup, the installation for the acme_workflow is straightforward.
 
 .. code-block:: bash
 
-    conda create -n workflow -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+    wget https://raw.githubusercontent.com/ACME-Climate/acme_processflow/master/env.yml
+    conda env create -f env.yml --yes
     source activate workflow
 
-Alternately you may want to use the nightly build. This is the more experimental branch where new changes are pushed before being merged into the main build
+If you already have an installation and want to upgrade, first source your environment and then run:
 
 .. code-block:: bash
 
-    conda create -n workflow -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
-    source activate workflow
-
-If you alreayd have an installation and want to upgrade, make sure you're in your environment and then run:
-
-.. code-block:: bash
-
-    conda install -c acme -c conda-forge -c uvcdat  -c lukasz processflow
+    conda install -c acme -c conda-forge -c uvcdat -c lukasz processflow
 
 Or upgrade from the nightly:
 
