@@ -20,13 +20,16 @@ This guide assumes your system already has the prerequisit dependencies.
 
 Once these are setup, the installation for the acme_workflow is straightforward.
 
+Note:
+_____
+All these commands assume you're using a bash environment. Other shells may not work correctly with conda
+
 .. code-block:: bash
 
     wget https://raw.githubusercontent.com/ACME-Climate/acme_processflow/master/env.yml
-    conda env create -f env.yml
-    source activate workflow
+    conda create --name <SOME_ENVIRONMENT_NAME> --file env.yml
+    source activate <SOME_ENVIRONMENT_NAME>
 
-If you already have an environment named "workflow," simply open the env.yml in an editor and change the first line to whatever name you like
 
 If you already have an installation and want to upgrade, first source your environment and then run:
 
