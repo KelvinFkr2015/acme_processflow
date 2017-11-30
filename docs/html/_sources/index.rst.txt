@@ -76,31 +76,66 @@ will be copied into the input directory. Once the run has completed the director
 
 .. code-block:: bash
 
+
+    project_path
     ├── input
-    │   ├── ATM [cam.h0 atmospheric model files]
-    │   ├── case_scripts [model run case directory]
-    │   ├── MPAS_AM [mpaso.hist.am.timeSeriesStatsMonthly]
-    │   ├── MPAS_CICE [mpascice.hist.am.timeSeriesStatsMonthly]
-    │   ├── MPAS_CICE_IN
-    │   │   └── mpas-cice_in
-    │   ├── MPAS_O_IN
-    │   │   └── mpas-o_in
-    │   ├── MPAS_RST
-    │   │   ├── mpaso.rst.0002-01-01_00000.nc
-    │   ├── RPT
-    │   │   ├── rpointer.atm
-    │   │   └── rpointer.ocn
-    │   ├── run.cfg
-    │   └── STREAMS
-    │       ├── streams.cice
-    │       └── streams.ocean
-    └── output
-        ├── amwg [AMWG output]
-        ├── climo [climatologies]
-        ├── climo_regrid [regridded climatologies]
-        ├── coupled_diags [coupled_diags output]
-        ├── monthly
-        │   └── 5yr [regridded timeseries]
-        ├── run_state.txt [current human readable run state]
-        ├── script_archive [archive directory of run scripts]
-        └── workflow.log
+    │   ├── atm
+    │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison.cam.h0.0001-01.nc
+    │   │   ├── .........
+    │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison.cam.h0.0060-12.nc
+    │   ├── case_scripts
+    │   ├── ice
+    │   │   ├── mpascice.hist.am.timeSeriesStatsMonthly.0051-01-01.nc
+    │   │   ├── .........
+    │   │   └── mpascice.hist.am.timeSeriesStatsMonthly.0060-12-01.nc
+    │   ├── mpas
+    │   │   ├── mpas-cice_in
+    │   │   └── mpas-o_in
+    │   ├── ocn
+    │   │   ├── mpaso.hist.am.timeSeriesStatsMonthly.0051-01-01.nc
+    │   │   ├── ........
+    │   │   └── mpaso.hist.am.timeSeriesStatsMonthly.0058-11-01.nc
+    │   ├── rest
+    │   │   └── mpaso.rst.0052-01-01_00000.nc
+    │   └── run.cfg
+    ├── output
+    │   ├── amwg_diag
+    │   │   ├── 0051-0055
+    │   │   ├── 0051-0060
+    │   │   └── 0056-0060
+    │   ├── aprime_diags
+    │   │   ├── 0051-0055
+    │   │   └── 0056-0060
+    │   ├── climo
+    │   │   ├── 10yr
+    │   │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_006001_climo.nc
+    │   │   │   ├── ..........
+    │   │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_006012_climo.nc
+    │   │   └── 5yr
+    │   │       ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
+    │   │       ├── ..........
+    │   │       └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_SON_005109_005511_climo.nc
+    │   ├── climo_regrid
+    │   │   ├── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_01_005101_005501_climo.nc
+    │   │       ├── ..........
+    │   │   └── 20170915.beta2.A_WCYCL1850S.ne30_oECv3_ICG.edison_12_005112_005512_climo.nc
+    │   ├── e3sm_diags
+    │   │   ├── 0051-0055
+    │   │   └── 0056-0060
+    │   ├── file_list.txt
+    │   ├── monthly
+    │   │   ├── 10yr
+    │   │       ├── ..........
+    │   │   └── 5yr
+    │   │       ├── ..........
+    │   ├── run_scripts
+    │   │   ├── ncclimo_0051_0055
+    │   │   ├── ..........
+    │   │   └── timeseries_0056_0060.out
+    │   ├── run_state.txt
+    │   │   └── e3sm_diags
+    │   │       ├── 0051-0055
+    │   │       └── 0056-0060
+    │   ├── workflow.error
+    │   └── workflow.log
+    └── run.cfg

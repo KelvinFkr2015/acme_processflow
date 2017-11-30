@@ -172,17 +172,17 @@
 <p><a class="reference external" href="https://www.globus.org/">Globus</a> is a tool for the bulk site to site transfer or large datasets.</p>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>You will need to find the globus node UUIDs for your source and destination nodes. They can be found by loggin into Globus,
+<p>You will need to find the globus node UUIDs for your source and destination nodes. They can be found by logging into Globus <a class="reference external" href="https://www.globus.org/app/login">here</a>,
 navigating to Endpoints in the upper right, searching for the DTN and looking for its UUID in the node attributes.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="k">global</span><span class="p">]</span>
 <span class="o">...</span>
-<span class="c1"># The directory to store model output</span>
-<span class="n">data_cache_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="nb">input</span>
+<span class="c1"># The directory to store model output on the local machine</span>
+<span class="n">project_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">USER_NAME</span><span class="o">/</span><span class="n">PROJECT</span><span class="o">/</span><span class="nb">input</span>
 
 <span class="c1"># This is the remote path to the run directory for your experiment. For example if your simulation was run on edison</span>
 <span class="c1"># the path would look something like</span>
-<span class="c1"># /scratch2/scratchdirs/golaz/ACME_simulations/20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison/run</span>
-<span class="n">source_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">SOME</span><span class="o">/</span><span class="n">PATH</span><span class="o">/</span><span class="n">TO</span><span class="o">/</span><span class="n">AN</span><span class="o">/</span><span class="n">EXPERIMENT</span><span class="o">/</span><span class="n">run</span>
+<span class="c1"># /scratch2/scratchdirs/golaz/ACME_simulations/20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison</span>
+<span class="n">source_path</span> <span class="o">=</span> <span class="o">/</span><span class="n">SOME</span><span class="o">/</span><span class="n">PATH</span><span class="o">/</span><span class="n">TO</span><span class="o">/</span><span class="n">AN</span><span class="o">/</span><span class="n">EXPERIMENT</span><span class="o">/</span>
 
 <span class="p">[</span><span class="n">transfer</span><span class="p">]</span>
 <span class="c1"># The Globus endpoint ID for the local host</span>
@@ -195,10 +195,9 @@ navigating to Endpoints in the upper right, searching for the DTN and looking fo
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>The data transfer job is the base job that starts all runs (unless you already have your data local). The acme_workflow will automatically
-generate transfer jobs dynamically as the monitor detects files on the remote host. This means you can start the acme_workflow at the same
-time you start the simulation, and it will wait for data to be generated, and transfer it as it is created.</p>
-<p>Data will be moved in chunks of 100GB, or you can set the size of the transfer jobs with the –size command line flag.</p>
+<p>The data transfer job is the base job that starts all runs (unless you already have your data local). The acme_processflow will automatically
+generate transfer jobs dynamically as the monitor detects files on the remote host. This means you can start the acme_processflow at the same
+time you start the simulation, and it will wait for data to be generated and transfer it as it is created.</p>
 <p>Once you start your run, if the source and destination nodes have not been activated with your credentials you will be prometed to
 log into Globus and activate the nodes. If you’re running in headless mode, you will be sent an email with activation links, and the workflow
 will pause until you finish the activation process.</p>

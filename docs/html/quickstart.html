@@ -186,19 +186,32 @@ The root path to be created on the local machine for all local storage. All mode
 <p><strong>source_path</strong>
 This is the path to look for data on the remote machine. This should be the root directory for the simulation, below which will be /run and /archive directories.</p>
 <p><strong>simulation_start_year</strong>
-The start year of the simulation. For example if the first year of the simulation output is 0100, but 100. If the first year is 0001, but 1</p>
+The start year of the simulation. For example if the first year of the simulation output is 0100, put 100. If the first year is 0001, out 1. Note that since E3SM numbers its years as a 1 indexed array, the first year should be 1, not 0.</p>
 <p><strong>simulation_end_year</strong>
 The expected end year. This can be set to any year while the simulation is still starting, and the acme_processflow will continuously poll for new data and start jobs as the data is made available.</p>
 <p><strong>exeriment</strong>
 The name of the experiment, based on the ACME convention for naming the file output. For example: 20170313.beta1_02.A_WCYCL1850S.ne30_oECv3_ICG.edison</p>
 <p><strong>set_frequency</strong>
-The acme_workflow breaks the simulation into groups based on how much data you want the jobs to run on.
+The acme_processflow breaks the simulation into groups based on how much data you want the jobs to run on.
 For example if you wanted AMWG to run on every 10 years, but also on every 50 years, you could have set_frequency = 10, 50,
 and for every group of 10 years and 50 years you would get the jobs for that length run.
-In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, 1-50</p>
+In this example, with 50 years of output, you would get sets from 1-10, 11-20, 21-30, 31-40, 41-50, and 1-50.</p>
 <p><strong>set_jobs</strong>
 Which jobs to run on which sets. This allows you to have different subsets of jobs run on different set lengths.
-If you dont want a job to run at all, keep the key for the job (the code is expecting it), but leave the value empty.</p>
+If you dont want a job to run at all simply remove it from the list.</p>
+<p>An example:</p>
+<dl class="docutils">
+<dt>[[set_jobs]]</dt>
+<dd># this will run ncclimo for both 5 and 10
+ncclimo = 5, 10
+# this will run time series only at 10
+timeseries = 10
+# this will run amwg only at 5
+amwg = 5
+# this will turn off the aprime diags by commenting it out
+# aprime_diags = 5
+e3sm_diags = 10</dd>
+</dl>
 </div>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
@@ -227,7 +240,7 @@ optional arguments:
 </pre></div>
 </div>
 <p>When run in interactive mode, the acme_processflow will exit if the terminal window is closed. For long running jobs, the best run method is to make sure the source and destination globus nodes have been activated with your credentials, and then run</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup processflow.py -c /PATH/TO/YOUR/CONFIG --no-ui <span class="p">&amp;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nohup processflow.py -c /PATH/TO/YOUR/CONFIG <span class="p">&amp;</span>
 </pre></div>
 </div>
 <p>Once the run starts, you will be prompted to authenticate with globus. Simply copy the address and paste into your browser.

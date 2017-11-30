@@ -4,7 +4,7 @@
 Sample
 ******
 
-
+This is a sample configuration file.
 
 .. code-block:: bash
 
@@ -51,12 +51,9 @@ Sample
     host_directory = /var/www/acme/acme-diags/
 
     # Types of files to transfer
-    # If you're running aprime keep all these, if you're just interested in AMWG or e3sm_diags
-    # you can use just
-    # file_types = 'atm'
-    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in'
+    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport'
 
-    # The jobs to run on each set, to turn off the job simply remove it from the list
+    # The jobs to run on each set, to turn off the job entirely leave its value blank
     [[set_jobs]]
         # this will run ncclimo for both 5 and 10
         ncclimo = 5, 10
@@ -65,7 +62,7 @@ Sample
         # this will run amwg only at 5
         amwg = 5, 10
         # this will turn off the coupled diag
-        aprime_diags = 10
+        aprime_diags =
         e3sm_diags = 10
 
     [e3sm_diags]

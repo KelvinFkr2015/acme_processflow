@@ -164,6 +164,7 @@
             
   <div class="section" id="sample">
 <span id="id1"></span><h1>Sample<a class="headerlink" href="#sample" title="Permalink to this headline">¶</a></h1>
+<p>This is a sample configuration file.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>global<span class="o">]</span>
 <span class="c1"># The root local directory to store project data as</span>
 <span class="c1"># well as post processing output</span>
@@ -207,12 +208,9 @@
 <span class="nv">host_directory</span> <span class="o">=</span> /var/www/acme/acme-diags/
 
 <span class="c1"># Types of files to transfer</span>
-<span class="c1"># If you&#39;re running aprime keep all these, if you&#39;re just interested in AMWG or e3sm_diags</span>
-<span class="c1"># you can use just</span>
-<span class="c1"># file_types = &#39;atm&#39;</span>
-<span class="nv">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>, <span class="s1">&#39;ice&#39;</span>, <span class="s1">&#39;ocn&#39;</span>, <span class="s1">&#39;rest&#39;</span>, <span class="s1">&#39;streams.ocean&#39;</span>, <span class="s1">&#39;streams.cice&#39;</span>, <span class="s1">&#39;mpas-o_in&#39;</span>, <span class="s1">&#39;mpas-cice_in&#39;</span>
+<span class="nv">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>, <span class="s1">&#39;ice&#39;</span>, <span class="s1">&#39;ocn&#39;</span>, <span class="s1">&#39;rest&#39;</span>, <span class="s1">&#39;streams.ocean&#39;</span>, <span class="s1">&#39;streams.cice&#39;</span>, <span class="s1">&#39;mpas-o_in&#39;</span>, <span class="s1">&#39;mpas-cice_in&#39;</span>, <span class="s1">&#39;meridionalHeatTransport&#39;</span>
 
-<span class="c1"># The jobs to run on each set, to turn off the job simply remove it from the list</span>
+<span class="c1"># The jobs to run on each set, to turn off the job entirely leave its value blank</span>
 <span class="o">[[</span>set_jobs<span class="o">]]</span>
     <span class="c1"># this will run ncclimo for both 5 and 10</span>
     <span class="nv">ncclimo</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
@@ -221,7 +219,7 @@
     <span class="c1"># this will run amwg only at 5</span>
     <span class="nv">amwg</span> <span class="o">=</span> <span class="m">5</span>, <span class="m">10</span>
     <span class="c1"># this will turn off the coupled diag</span>
-    <span class="nv">aprime_diags</span> <span class="o">=</span> <span class="m">10</span>
+    <span class="nv">aprime_diags</span> <span class="o">=</span>
     <span class="nv">e3sm_diags</span> <span class="o">=</span> <span class="m">10</span>
 
 <span class="o">[</span>e3sm_diags<span class="o">]</span>

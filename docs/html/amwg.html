@@ -176,30 +176,23 @@
 <span class="o">...</span>
 <span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
 
-    <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+<span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
     <span class="n">ncclimo</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
     <span class="n">amwg</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
 
 <span class="p">[</span><span class="n">amwg</span><span class="p">]</span>
-<span class="c1"># The location of the amwg code.</span>
-<span class="c1"># This is the install directory for the AMWG code</span>
+<span class="c1"># The location of the amwg code</span>
 <span class="n">diag_home</span> <span class="o">=</span> <span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cscratch</span><span class="o">/</span><span class="n">acme</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">amwg_diag</span>
 
-<span class="c1"># The directory to copy output to for web hosting</span>
-<span class="c1"># This path is relative to the global host_prefix</span>
-<span class="n">host_directory</span> <span class="o">=</span> <span class="o">/</span><span class="n">amwg</span><span class="o">/</span>
-
-<span class="c1"># The base of the url to serve through apache</span>
-<span class="c1"># This is the prefix for the url generation, the path to access the output from apache</span>
-<span class="o">*</span> <span class="k">for</span> <span class="n">example</span> <span class="n">this</span> <span class="n">would</span> <span class="n">construct</span> <span class="n">the</span> <span class="n">following</span> <span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">your_server</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">amwg</span><span class="o">/</span><span class="n">your_data_set</span>
-<span class="n">host_url_prefix</span> <span class="o">=</span> <span class="n">amwg</span>
+<span class="c1"># The directory to copy output to for hosting</span>
+<span class="n">host_directory</span> <span class="o">=</span> <span class="n">amwg</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <p>For each year set that AMWG is configured to run, it requires regridded climatologies created by ncclimo. This means that you have to make sure
-that for its year set ncclimo is also set to run. AMWG will wait for ncclimo to finish generating climatologies before starting its run.</p>
+that for each year_set ncclimo is also set to run. AMWG will wait for ncclimo to finish generating climatologies before starting its run.</p>
 </div>
 </div>
 

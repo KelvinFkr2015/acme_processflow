@@ -3,13 +3,12 @@ A-Prime Diagnostic
 ******************
 
 `A-Prime <https://github.com/ACME-Climate/a-prime>`_ runs a subset of atmospheric plots, as well
-as the MPAS ocean analysis. It is also known as the Coupled Diagnostics.
+as the MPAS ocean analysis including ENSO diagnostics.
 
 Configuration
 -------------
 
-The A-Prime diagnostics required significantly more data then other diagnostic packages. It can be run in atmospheric only mode by turning off the 
-run_ocean flag, in which case it only requires the ATM files and the RPT files. With run_ocean turned on, it requires all the following data.
+The A-Prime diagnostics required significantly more data then other diagnostic packages.
 
 .. code-block:: python
 
@@ -17,18 +16,22 @@ run_ocean flag, in which case it only requires the ATM files and the RPT files. 
     ...
     set_frequency = SOME_LENGTH
 
-        [[patterns]]
-        ATM = "cam.h0"
-        MPAS_AM = "mpaso.hist.am.timeSeriesStatsMonthly"
-        MPAS_CICE = "mpascice.hist.am.timeSeriesStatsMonthly"
-        MPAS_RST = "mpaso.rst.0"
-        MPAS_O_IN = "mpas-o_in"
-        MPAS_CICE_IN = "mpas-cice_in"
-        RPT = "rpointer"
-        ...
+    file_types = 'atm', 'ice', 'ocn', 'rest', 'streams.ocean', 'streams.cice', 'mpas-o_in', 'mpas-cice_in', 'meridionalHeatTransport'
     
-        [[set_jobs]]
-        coupled_diags = SOME_LENGTH
+    [[set_jobs]]
+        aprime = SOME_LENGTH
+    
+    [aprime_diags]
+    # The directory to copy plots for hosting
+    host_directory = aprime-diags
+
+    # The code directory for aprime
+    aprime_code_path = /p/cscratch/acme/data/a-prime
+
+    # the atmospheric reslution of your simulation
+    test_atm_res = ne30
+    # the mpas mesh name used
+    test_mpas_mesh_name = oEC60to30v3
 
 Dependencies
 ------------

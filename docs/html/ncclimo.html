@@ -177,11 +177,10 @@ extracting time series variables.</p>
 <span class="o">...</span>
 <span class="n">set_frequency</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
 
-    <span class="p">[[</span><span class="n">patterns</span><span class="p">]]</span>
-    <span class="n">ATM</span> <span class="o">=</span> <span class="s2">&quot;cam.h0&quot;</span>
-    <span class="o">...</span>
+<span class="n">file_types</span> <span class="o">=</span> <span class="s1">&#39;atm&#39;</span>
+<span class="o">...</span>
 
-    <span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
+<span class="p">[[</span><span class="n">set_jobs</span><span class="p">]]</span>
     <span class="n">ncclimo</span> <span class="o">=</span> <span class="n">SOME_LENGTH</span>
 
 <span class="p">[</span><span class="n">ncclimo</span><span class="p">]</span>
@@ -195,7 +194,7 @@ extracting time series variables.</p>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>The only dependency for ncclimo is that it in the [[patters]] dictionary the ATM key is set to your simulations h0 output. Ncclimo will then
+<p>The only dependency for ncclimo is that in the file_types list the “atm” key is set. Ncclimo will then
 generate regridded climatologies to be used by diagnostic packages.</p>
 </div>
 </div>

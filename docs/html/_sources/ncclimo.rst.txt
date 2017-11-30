@@ -14,11 +14,10 @@ Configuration
     ...
     set_frequency = SOME_LENGTH
 
-        [[patterns]]
-        ATM = "cam.h0"
-        ...
+    file_types = 'atm'
+    ...
     
-        [[set_jobs]]
+    [[set_jobs]]
         ncclimo = SOME_LENGTH
     
     [ncclimo]
@@ -31,5 +30,5 @@ Configuration
 Dependencies
 ------------
 
-The only dependency for ncclimo is that it in the [[patters]] dictionary the ATM key is set to your simulations h0 output. Ncclimo will then
+The only dependency for ncclimo is that in the file_types list the "atm" key is set. Ncclimo will then
 generate regridded climatologies to be used by diagnostic packages.

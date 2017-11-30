@@ -35,12 +35,12 @@ If you already have an installation and want to upgrade, first source your envir
 
 .. code-block:: bash
 
-    conda install -c acme -c conda-forge -c uvcdat -c lukasz processflow
+    conda install -c acme -c conda-forge -c uvcdat processflow
 
 Or upgrade from the nightly:
 
 .. code-block:: bash
 
-    conda install -c acme/label/nightly -c conda-forge -c uvcdat  -c lukasz processflow
+    conda install -c acme/label/nightly -c conda-forge -c uvcdat processflow
 
 Instructions on configuration and execution can be found here :ref:`Quickstart`
